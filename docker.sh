@@ -67,6 +67,7 @@ function buildImage {
     local service="$4"
 
     docker build \
+        --quiet \
         "${version}/${edition}/${php}/${service}/" \
         -t "bheisig/idoit:${version}-${edition}-${php}-${service}"
 }
@@ -130,7 +131,7 @@ function lintDockerfile {
 }
 
 function lintShellScripts {
-    lintShellScript *.sh
+    lintShellScript ./*.sh
     lintShellScript apache/*.sh
 
     lintShellScript 1.12.1/open/php7.0/apache/*.sh
@@ -169,7 +170,7 @@ function lintShellScripts {
 
 function lintShellScript {
     local filePath="$1"
-    docker run -v $(pwd):/scripts koalaman/shellcheck "/scripts/$filePath"
+    docker run -v "$(pwd):/scripts" koalaman/shellcheck "/scripts/$filePath"
 }
 
 function printReadme {
