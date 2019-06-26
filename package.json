@@ -1,0 +1,31 @@
+{
+    "name": "i-doit-docker",
+    "description": "Dockerized i-doit CMDB",
+    "keywords": [],
+    "version": "0.0.0-dev",
+    "homepage": "https://i-doit.com/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bheisig/i-doit-docker"
+    },
+    "bugs": {
+        "url": "https://github.com/bheisig/i-doit-docker/issues"
+    },
+    "license": "AGPL-3.0-or-later",
+    "author": "Benjamin Heisig <bheisig@i-doit.com> (https://i-doit.com/)",
+    "dependencies": {
+        "remark-cli": "^6.0.1",
+        "remark-lint": "^6.0.5",
+        "remark-preset-lint-recommended": "^3.0.3",
+        "yaml-lint": "^1.2.4"
+    },
+    "scripts": {
+        "lint-md": "./node_modules/.bin/remark . .github/ --frail --ignore-path .gitignore",
+        "lint-yaml": "./node_modules/.bin/yamllint *.yml *.yaml .*.yml .*.yaml"
+    },
+    "remarkConfig": {
+        "plugins": [
+            "remark-preset-lint-recommended"
+        ]
+    }
+}
