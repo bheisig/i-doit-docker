@@ -45,3 +45,4 @@ table_open_cache = 2048
 innodb_stats_on_metadata = 0
 
 sql-mode = ""
+innodb_strict_mode = 0
