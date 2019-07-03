@@ -2,6 +2,8 @@
 
 Dockerized [i-doit CMDB](https://i-doit.com/)
 
+[![Build Status](https://travis-ci.org/bheisig/i-doit-docker.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-docker)
+
 ## Not production-ready!
 
 **The provided Docker images aren't production-ready. Please do not rely on them. They come "as is" with absolutely no warranty. They are not an official product by synetics GmbH. Therefore, we can't provide you any support.**
@@ -81,12 +83,73 @@ Run the latest version of i-doit pro with PHP 7.3 and FPM:
 docker run i-doit-fpm -p 9000:9000 bheisig/idoit:1.13-pro-php7.3-fpm
 ~~~
 
+### Available volumes
+
+Each i-doit container has one default volume containing the complete installation directory: `/var/www/html`. This directory includes the source code, cache files, uploaded files, installed add-ons, custom translation files, etc.
+
 ### Run i-doit with Docker Compose
 
 i-doit requires either MariaDB or MySQL as the database backend. Additionally, memcached is highly recommend. There are some examples:
 
 -   [Run with Apache HTTPD](docker-compose-apache.yml)
 -   [Run with PHP-FPM](docker-compose-fpm.yml)
+
+### Run i-doit CLI tool
+
+i-doit has its own CLI tool named `console.php` for long-lasting, recurring tasks or automating things in background. You can execute any CLI command in the running Docker container, for example:
+
+~~~ {.bash}
+docker exec -it --user www-data i-doit-fpm php console.php --help
+~~~
+
+### Update i-doit
+
+_This is currently not working as smoothly as expected._
+
+### Backup and restore
+
+For a fully backup and restore process you need to consider at least 3 sources:
+
+1.  i-doit installation directory (see section "Available volumes")
+2.  System database (default: `idoit_system`)
+3.  Each tenant database (default 1st one: `idoit_data`)
+
+As you can see in the examples for `docker-compose` (see section "Run i-doit with Docker Compose") the simplest thing is to backup the named volumes. But for a running instance of MariaDB this is a bad solution because everything stored temporarily in memory won't be backed up. Therefore, run `mysqldump` (for backup) and `mysql` (for restore) to fetch every bit stored in the databases.
+
+This is a basic example to backup everything in a running environment:
+
+~~~ {.bash}
+docker exec i-doit-fpm /bin/tar cvf - . | gzip -9 > /tmp/ben/backup.tar.gz
+docker exec i-doit-fpm /usr/bin/mysqldump -uidoit -pidoit --all-databases | gzip -9 > backup.sql.gz
+~~~
+
+This is a basic example to restore those backups:
+
+~~~ {.bash}
+cat backup.tar.gz | docker exec -interactive i-doit-fpm /bin/tar xzvf -
+gunzip < backup.sql.gz | docker exec -interactive i-doit-fpm /usr/bin/mysql -uidoit -pidoit
+~~~
+
+Don't forget to alter the commands above to your needs.
+
+### Add a subscription license
+
+Copy the file to the running i-doit container and import the file with the i-doit CLI tool:
+
+~~~ {.bash}
+docker cp license.txt i-doit-fpm:/tmp/
+docker exec --interactive --user www-data i-doit-fpm php console.php license-add --user admin --password admin --no-interaction --license /tmp/license.txt
+~~~
+
+### Move your CMDB data to a container
+
+There are no general instructions for this job because every environment is slightly different. The next example assumes that i-doit is currently installed on the same host as the running i-doit container:
+
+~~~ {.bash}
+cd /var/www/html/
+tar czvf - . | docker exec -interactive i-doit-fpm /bin/tar xzvf -
+mysqldump -uidoit -pidoit --all-databases | docker exec -interactive i-doit-fpm /usr/bin/mysql -uidoit -pidoit
+~~~
 
 ### TLS/HTTPS
 
