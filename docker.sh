@@ -108,6 +108,14 @@ function lintDockerfiles {
     lintDockerfile 1.12.4 pro php7.1 fpm
     lintDockerfile 1.12.4 pro php7.2 apache
     lintDockerfile 1.12.4 pro php7.2 fpm
+    lintDockerfile 1.13 open php7.0 apache
+    lintDockerfile 1.13 open php7.0 fpm
+    lintDockerfile 1.13 open php7.1 apache
+    lintDockerfile 1.13 open php7.1 fpm
+    lintDockerfile 1.13 open php7.2 apache
+    lintDockerfile 1.13 open php7.2 fpm
+    lintDockerfile 1.13 open php7.3 apache
+    lintDockerfile 1.13 open php7.3 fpm
     lintDockerfile 1.13 pro php7.0 apache
     lintDockerfile 1.13 pro php7.0 fpm
     lintDockerfile 1.13 pro php7.1 apache
@@ -168,6 +176,14 @@ function lintShellScripts {
     lintShellScript 1.12.4/pro/php7.1/fpm/*.sh
     lintShellScript 1.12.4/pro/php7.2/apache/*.sh
     lintShellScript 1.12.4/pro/php7.2/fpm/*.sh
+    lintShellScript 1.13/open/php7.0/apache/*.sh
+    lintShellScript 1.13/open/php7.0/fpm/*.sh
+    lintShellScript 1.13/open/php7.1/apache/*.sh
+    lintShellScript 1.13/open/php7.1/fpm/*.sh
+    lintShellScript 1.13/open/php7.2/apache/*.sh
+    lintShellScript 1.13/open/php7.2/fpm/*.sh
+    lintShellScript 1.13/open/php7.3/apache/*.sh
+    lintShellScript 1.13/open/php7.3/fpm/*.sh
     lintShellScript 1.13/pro/php7.0/apache/*.sh
     lintShellScript 1.13/pro/php7.0/fpm/*.sh
     lintShellScript 1.13/pro/php7.1/apache/*.sh
@@ -209,6 +225,14 @@ function printReadme {
     printSupportedTags 1.12.4 pro php7.1 fpm
     printSupportedTags 1.12.4 pro php7.2 apache
     printSupportedTags 1.12.4 pro php7.2 fpm
+    printSupportedTags 1.13 open php7.0 apache
+    printSupportedTags 1.13 open php7.0 fpm
+    printSupportedTags 1.13 open php7.1 apache
+    printSupportedTags 1.13 open php7.1 fpm
+    printSupportedTags 1.13 open php7.2 apache
+    printSupportedTags 1.13 open php7.2 fpm
+    printSupportedTags 1.13 open php7.3 apache
+    printSupportedTags 1.13 open php7.3 fpm
     printSupportedTags 1.13 pro php7.0 apache
     printSupportedTags 1.13 pro php7.0 fpm
     printSupportedTags 1.13 pro php7.1 apache
