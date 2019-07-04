@@ -122,12 +122,21 @@ function fixConfigFile {
 }
 
 function enableMemcached {
-    if [[ -n "$MEMCACHED_HOST" && -n "$MEMCACHED_PORT" ]]; then
-        log "Enable memcached: $MEMCACHED_HOST:$MEMCACHED_PORT"
+    if [[ -n "$MEMCACHED_HOST" ]]; then
+        log "Enable memcached: $MEMCACHED_HOST"
         "$MARIADB_BIN" \
             -h"$MYSQL_HOSTNAME" \
             -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" \
-            -e"INSERT INTO ${IDOIT_SYSTEM_DATABASE}.isys_settings (isys_settings__key, isys_settings__value) VALUES ('memcache.host', '${MEMCACHED_HOST}'), ('memcache.port', '${MEMCACHED_PORT}');" || \
+            -e"INSERT INTO ${IDOIT_SYSTEM_DATABASE}.isys_settings (isys_settings__key, isys_settings__value) VALUES ('memcache.host', '${MEMCACHED_HOST}');" || \
+            abort "SQL statement failed"
+    fi
+
+    if [[ -n "$MEMCACHED_PORT" ]]; then
+        log "Configure memcached port: $MEMCACHED_PORT"
+        "$MARIADB_BIN" \
+            -h"$MYSQL_HOSTNAME" \
+            -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" \
+            -e"INSERT INTO ${IDOIT_SYSTEM_DATABASE}.isys_settings (isys_settings__key, isys_settings__value) VALUES ('memcache.port', '${MEMCACHED_PORT}');" || \
             abort "SQL statement failed"
     fi
 }

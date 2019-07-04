@@ -45,7 +45,6 @@ function runChecks {
 
 function waitForDBMS {
     while ! "$MARIADB_BIN" \
-        --protocol TCP \
         -h"$MYSQL_HOSTNAME" \
         -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" \
         -e "SHOW DATABASES;" &> /dev/null; do
@@ -62,7 +61,6 @@ function execute {
     runIdoitSetup
     fixTenantTable
     fixConfigFile
-    moveApacheConfig
     enableMemcached
 }
 
@@ -71,7 +69,6 @@ function addDB {
 
     log "Create database '${dbName}'"
     "$MARIADB_BIN" \
-        --protocol TCP \
         -h"$MYSQL_HOSTNAME" \
         -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" \
         -e"CREATE DATABASE IF NOT EXISTS $dbName;" || \
@@ -79,7 +76,6 @@ function addDB {
 
     log "Grant MariaDB user '${MYSQL_USER}' access to database '${dbName}'"
     "$MARIADB_BIN" \
-        --protocol TCP \
         -h"$MYSQL_HOSTNAME" \
         -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" \
         -e"GRANT ALL PRIVILEGES ON ${dbName}.* TO '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';" || \
@@ -101,7 +97,6 @@ function runIdoitSetup {
 function fixTenantTable {
     log "Fix tenant table"
     "$MARIADB_BIN" \
-        --protocol TCP \
         -h"$MYSQL_HOSTNAME" \
         -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" \
         -e"UPDATE ${IDOIT_SYSTEM_DATABASE}.isys_mandator SET isys_mandator__db_user = '${MYSQL_USER}', isys_mandator__db_pass = '${MYSQL_PASSWORD}';" || \
@@ -114,48 +109,34 @@ function fixConfigFile {
     log "Fix configuration file '${configFile}'"
 
     sed -i -- \
-        "s/\"user\" => \"${MYSQL_ROOT_USER}\"/\"user\" => \"${MYSQL_USER}\"/g" \
+        "s/'user' => '${MYSQL_ROOT_USER}'/'user' => '${MYSQL_USER}'/g" \
         "$configFile" || \
         abort "Unable to replace MariaDB username"
 
     sed -i -- \
-        "s/\"pass\" => \"${MYSQL_ROOT_PASSWORD}\"/\"pass\" => \"${MYSQL_PASSWORD}\"/g" \
+        "s/'pass' => '${MYSQL_ROOT_PASSWORD}'/'pass' => '${MYSQL_PASSWORD}'/g" \
         "$configFile" || \
         abort "Unable to replace MariaDB password"
 
     chown "$APACHE_USER":"$APACHE_GROUP" "$configFile" || abort "Unable to change ownership"
 }
 
-function moveApacheConfig {
-    local htaccessFile="${INSTALL_DIR}/.htaccess"
-    local vHostFile="/etc/apache2/sites-available/i-doit.conf"
-    local commentText="## Insert content from .htaccess file here"
-
-    if [[ ! -f "$htaccessFile" ]]; then
-        return 0
-    fi
-
-    log "Integrate i-doit's .htaccess file into Apache HTTPD vhost configuration file"
-
-    sed -i \
-        -e "/${commentText}/ {" \
-        -e "r ${htaccessFile}" \
-        -e "d" \
-        -e "}" \
-        "$vHostFile" || \
-        abort "Unable to change config file"
-
-    rm "$htaccessFile" || abort "Unable to remove $htaccessFile"
-}
-
 function enableMemcached {
-    if [[ -n "$MEMCACHED_HOST" && -n "$MEMCACHED_PORT" ]]; then
-        log "Enable memcached: $MEMCACHED_HOST:$MEMCACHED_PORT"
+    if [[ -n "$MEMCACHED_HOST" ]]; then
+        log "Enable memcached: $MEMCACHED_HOST"
         "$MARIADB_BIN" \
-            --protocol TCP \
             -h"$MYSQL_HOSTNAME" \
             -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" \
-            -e"INSERT INTO ${IDOIT_SYSTEM_DATABASE}.isys_settings (isys_settings__key, isys_settings__value) VALUES ('memcache.host', '${MEMCACHED_HOST}'), ('memcache.port', '${MEMCACHED_PORT}');" || \
+            -e"INSERT INTO ${IDOIT_SYSTEM_DATABASE}.isys_settings (isys_settings__key, isys_settings__value) VALUES ('memcache.host', '${MEMCACHED_HOST}');" || \
+            abort "SQL statement failed"
+    fi
+
+    if [[ -n "$MEMCACHED_PORT" ]]; then
+        log "Configure memcached port: $MEMCACHED_PORT"
+        "$MARIADB_BIN" \
+            -h"$MYSQL_HOSTNAME" \
+            -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" \
+            -e"INSERT INTO ${IDOIT_SYSTEM_DATABASE}.isys_settings (isys_settings__key, isys_settings__value) VALUES ('memcache.port', '${MEMCACHED_PORT}');" || \
             abort "SQL statement failed"
     fi
 }

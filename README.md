@@ -93,6 +93,7 @@ i-doit requires either MariaDB or MySQL as the database backend. Additionally, m
 
 -   [Run with Apache HTTPD](docker-compose-apache.yml)
 -   [Run with PHP-FPM](docker-compose-fpm.yml)
+-   [Run with PHP-FPM and UNIX sockets](docker-compose-sockets.yml)
 
 ### Run i-doit CLI tool
 
@@ -133,6 +134,8 @@ gunzip < backup.sql.gz | docker exec -interactive i-doit-fpm /usr/bin/mysql -uid
 Don't forget to alter the commands above to your needs.
 
 ### Add a subscription license
+
+_since i-doit v1.13_
 
 Copy the file to the running i-doit container and import the file with the i-doit CLI tool:
 

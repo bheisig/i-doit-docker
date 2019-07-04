@@ -45,18 +45,15 @@ RUN apt-get update; \
         imagick \
         memcached
 
-COPY php.ini /usr/local/etc/php/conf.d/99-i-doit.ini
-
-COPY php-fpm.ini /usr/local/etc/php-fpm.d/99-i-doit.conf
-
-COPY entrypoint.sh is-installed.sh setup.sh /usr/local/bin/
-
-COPY CHECKSUMS /var/www/html
-
-VOLUME /var/www/html
-
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini; \
+    rm /usr/local/etc/php-fpm.d/*.conf; \
+    mkdir -p /run/php; \
     mkdir -p /var/www/html
+
+COPY php.ini /usr/local/etc/php/conf.d/99-i-doit.ini
+COPY php-fpm.ini /usr/local/etc/php-fpm.d/i-doit.conf
+COPY entrypoint.sh is-installed.sh setup.sh /usr/local/bin/
+COPY CHECKSUMS /var/www/html
 
 WORKDIR /var/www/html
 
@@ -73,6 +70,8 @@ RUN curl -fsSLO "${IDOIT_DOWNLOAD_URL}"; \
     find . -type d -name \* -exec chmod 775 {} \;; \
     find . -type f -exec chmod 664 {} \;; \
     chmod 774 ./*.sh setup/*.sh
+
+VOLUME /var/www/html
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["php-fpm"]
