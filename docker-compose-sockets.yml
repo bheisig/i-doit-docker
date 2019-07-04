@@ -7,9 +7,9 @@ services:
     restart: always
     network_mode: none
     volumes:
-      - db:/var/lib/mysql/
-      - ./mariadb:/etc/mysql/conf.d/
-      - dbsocket:/run/mysqld/
+      - db:/var/lib/mysql
+      - ./mariadb:/etc/mysql/conf.d
+      - dbsocket:/run/mysqld
     env_file:
       - .env
 
@@ -18,7 +18,7 @@ services:
     restart: always
     network_mode: none
     volumes:
-      - memcached:/tmp/
+      - memcachedsocket:/tmp
     command: -s /tmp/memcached.sock -a 777
 
   web:
@@ -31,7 +31,7 @@ services:
     depends_on:
       - idoit
     volumes:
-      - fpmsocket:/run/php/
+      - fpmsocket:/run/php
       - type: volume
         source: idoit
         target: /var/www/html
@@ -45,9 +45,9 @@ services:
     network_mode: none
     volumes:
       - idoit:/var/www/html
-      - fpmsocket:/run/php/
-      - dbsocket:/run/mysqld/
-      - memcached:/run/memcached/
+      - fpmsocket:/run/php
+      - dbsocket:/run/mysqld
+      - memcachedsocket:/run/memcached
     depends_on:
       - db
       - memcached
@@ -59,7 +59,7 @@ volumes:
   db:
   dbsocket:
   fpmsocket:
-  memcached:
+  memcachedsocket:
 
 networks:
   frontend:
