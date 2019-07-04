@@ -17,7 +17,6 @@ RUN apt-get update; \
         libpng-dev \
         libpq-dev \
         libxml2-dev \
-        libmagickwand-dev \
         libzip-dev \
         mariadb-client \
         unzip \
@@ -25,7 +24,7 @@ RUN apt-get update; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*; \
     docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr; \
-    docker-php-ext-configure ldap --with-libdir="lib/$("dpkg-architecture --query DEB_BUILD_MULTIARCH")"; \
+    docker-php-ext-configure ldap --with-libdir="lib/$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
     docker-php-ext-install \
         gd \
         ldap \
@@ -39,10 +38,8 @@ RUN apt-get update; \
     ; \
     pecl install APCu; \
     pecl install memcached; \
-    pecl install imagick; \
     docker-php-ext-enable \
         apcu \
-        imagick \
         memcached
 
 COPY php.ini /usr/local/etc/php/conf.d/99-i-doit.ini

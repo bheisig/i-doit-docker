@@ -17,7 +17,6 @@ RUN apt-get update; \
         libpng-dev \
         libpq-dev \
         libxml2-dev \
-        libmagickwand-dev \
         libzip-dev \
         mariadb-client \
         unzip \
@@ -25,7 +24,7 @@ RUN apt-get update; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*; \
     docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr; \
-    docker-php-ext-configure ldap --with-libdir="lib/$("dpkg-architecture --query DEB_BUILD_MULTIARCH")"; \
+    docker-php-ext-configure ldap --with-libdir="lib/$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
     docker-php-ext-install \
         gd \
         ldap \
@@ -39,10 +38,8 @@ RUN apt-get update; \
     ; \
     pecl install APCu; \
     pecl install memcached; \
-    pecl install imagick; \
     docker-php-ext-enable \
         apcu \
-        imagick \
         memcached
 
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini; \
@@ -59,7 +56,7 @@ WORKDIR /var/www/html
 
 ARG IDOIT_VERSION=1.12.4
 ARG IDOIT_DOWNLOAD_URL=https://login.i-doit.com/downloads/idoit-open-${IDOIT_VERSION}.zip
-ARG IDOIT_ZIP_FILE=idoit-${IDOIT_VERSION}.zip
+ARG IDOIT_ZIP_FILE=idoit-open-${IDOIT_VERSION}.zip
 
 RUN curl -fsSLO "${IDOIT_DOWNLOAD_URL}"; \
     sha256sum --strict --ignore-missing --check CHECKSUMS; \
