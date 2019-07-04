@@ -128,15 +128,15 @@ As you can see in the examples for `docker-compose` (see section "Run i-doit wit
 This is a basic example to backup everything in a running environment:
 
 ~~~ {.bash}
-docker exec i-doit-fpm /bin/tar cvf - . | gzip -9 > /tmp/ben/backup.tar.gz
+docker exec i-doit-fpm /bin/tar cvf - . | gzip -9 > backup.tar.gz
 docker exec i-doit-fpm /usr/bin/mysqldump -uidoit -pidoit --all-databases | gzip -9 > backup.sql.gz
 ~~~
 
 This is a basic example to restore those backups:
 
 ~~~ {.bash}
-cat backup.tar.gz | docker exec -interactive i-doit-fpm /bin/tar xzvf -
-gunzip < backup.sql.gz | docker exec -interactive i-doit-fpm /usr/bin/mysql -uidoit -pidoit
+cat backup.tar.gz | docker exec --interactive i-doit-fpm /bin/tar xzvf -
+gunzip < backup.sql.gz | docker exec --interactive i-doit-fpm /usr/bin/mysql -uidoit -pidoit
 ~~~
 
 Don't forget to alter the commands above to your needs.
@@ -149,7 +149,9 @@ Copy the file to the running i-doit container and import the file with the i-doi
 
 ~~~ {.bash}
 docker cp license.txt i-doit-fpm:/tmp/
-docker exec --interactive --user www-data i-doit-fpm php console.php license-add --user admin --password admin --no-interaction --license /tmp/license.txt
+docker exec --interactive --user www-data i-doit-fpm php \
+    console.php license-add \
+    --user admin --password admin --no-interaction --license /tmp/license.txt
 ~~~
 
 ### Move your CMDB data to a container
@@ -158,8 +160,9 @@ There are no general instructions for this job because every environment is slig
 
 ~~~ {.bash}
 cd /var/www/html/
-tar czvf - . | docker exec -interactive i-doit-fpm /bin/tar xzvf -
-mysqldump -uidoit -pidoit --all-databases | docker exec -interactive i-doit-fpm /usr/bin/mysql -uidoit -pidoit
+tar czvf - . | docker exec --interactive i-doit-fpm /bin/tar xzvf -
+mysqldump -uidoit -pidoit --all-databases | \
+    docker exec --interactive i-doit-fpm /usr/bin/mysql -uidoit -pidoit
 ~~~
 
 ### TLS/HTTPS
