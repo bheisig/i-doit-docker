@@ -65,11 +65,14 @@ function buildImage {
     local edition="$2"
     local php="$3"
     local service="$4"
+    local path="${version}/${edition}/${php}/${service}/"
+    local tag="bheisig/idoit:${version}-${edition}-${php}-${service}"
+
+    log "Build $tag from $path"
 
     docker build \
-        --quiet \
-        "${version}/${edition}/${php}/${service}/" \
-        -t "bheisig/idoit:${version}-${edition}-${php}-${service}"
+        "$path" \
+        -t "$tag"
 }
 
 function test {
@@ -114,6 +117,8 @@ function lintDockerfiles {
     lintDockerfile 1.13 pro php7.3 apache
     lintDockerfile 1.13 pro php7.3 fpm
 
+    log "Lint apache/Dockerfile"
+
     docker run --rm -i -v "$PWD:/opt/hadolint/" hadolint/hadolint \
         hadolint --config /opt/hadolint/.hadolint.yaml - < \
         apache/Dockerfile
@@ -124,14 +129,19 @@ function lintDockerfile {
     local edition="$2"
     local php="$3"
     local service="$4"
+    local dockerfile="${version}/${edition}/${php}/${service}/Dockerfile"
+
+    log "Lint $dockerfile"
 
     docker run --rm -i -v "$PWD:/opt/hadolint/" hadolint/hadolint \
         hadolint --config /opt/hadolint/.hadolint.yaml - < \
-        "${version}/${edition}/${php}/${service}/Dockerfile"
+        "$dockerfile"
 }
 
 function lintShellScripts {
+    log "Lint shell scripts ./*.sh"
     lintShellScript ./*.sh
+    log "Lint shell scripts apache/*.sh"
     lintShellScript apache/*.sh
 
     lintShellScript 1.12.1/open/php7.0/apache/*.sh
@@ -170,6 +180,7 @@ function lintShellScripts {
 
 function lintShellScript {
     local filePath="$1"
+    log "Lint shell script $filePath"
     docker run -v "$(pwd):/scripts" koalaman/shellcheck "/scripts/$filePath"
 }
 
