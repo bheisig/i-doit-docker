@@ -135,7 +135,7 @@ docker exec i-doit-fpm /usr/bin/mysqldump -uidoit -pidoit --all-databases | gzip
 This is a basic example to restore those backups:
 
 ~~~ {.bash}
-cat backup.tar.gz | docker exec --interactive i-doit-fpm /bin/tar xzvf -
+cat backup.tar.gz | docker exec --interactive --user www-data i-doit-fpm /bin/tar xzvf -
 gunzip < backup.sql.gz | docker exec --interactive i-doit-fpm /usr/bin/mysql -uidoit -pidoit
 ~~~
 
@@ -160,7 +160,7 @@ There are no general instructions for this job because every environment is slig
 
 ~~~ {.bash}
 cd /var/www/html/
-tar czvf - . | docker exec --interactive i-doit-fpm /bin/tar xzvf -
+tar czvf - . | docker exec --interactive --user www-data i-doit-fpm /bin/tar xzvf -
 mysqldump -uidoit -pidoit --all-databases | \
     docker exec --interactive i-doit-fpm /usr/bin/mysql -uidoit -pidoit
 ~~~
