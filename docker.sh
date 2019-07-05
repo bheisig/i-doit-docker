@@ -14,9 +14,9 @@ function execute {
             test
             ;;
         "push")
-            abort "Implement me!"
+            pushImages
             ;;
-        "print-readme")
+        "print")
             printReadme
             ;;
         *)
@@ -72,13 +72,14 @@ function buildImage {
 
     docker build \
         "$path" \
-        -t "$tag"
+        -t "$tag" || \
+        abort "No build"
 }
 
 function test {
-    npm audit
-    npm run-script lint-md
-    npm run-script lint-yaml
+    npm audit || abort "No good"
+    npm run-script lint-md || abort "No good"
+    npm run-script lint-yaml || abort "No good"
     lintDockerfiles
     lintShellScripts
 }
@@ -129,7 +130,8 @@ function lintDockerfiles {
 
     docker run --rm -i -v "$PWD:/opt/hadolint/" hadolint/hadolint \
         hadolint --config /opt/hadolint/.hadolint.yaml - < \
-        apache/Dockerfile
+        apache/Dockerfile || \
+        abort "No good"
 }
 
 function lintDockerfile {
@@ -143,7 +145,8 @@ function lintDockerfile {
 
     docker run --rm -i -v "$PWD:/opt/hadolint/" hadolint/hadolint \
         hadolint --config /opt/hadolint/.hadolint.yaml - < \
-        "$dockerfile"
+        "$dockerfile" || \
+        abort "No good"
 }
 
 function lintShellScripts {
@@ -197,7 +200,59 @@ function lintShellScripts {
 function lintShellScript {
     local filePath="$1"
     log "Lint shell script $filePath"
-    docker run -v "$(pwd):/scripts" koalaman/shellcheck "/scripts/$filePath"
+    docker run \
+        -v "$(pwd):/scripts" \
+        koalaman/shellcheck \
+        "/scripts/$filePath" || \
+        abort "No good"
+}
+
+function pushImages {
+    pushImage 1.12.1 open php7.0 apache
+    pushImage 1.12.1 open php7.0 fpm
+    pushImage 1.12.1 open php7.1 apache
+    pushImage 1.12.1 open php7.1 fpm
+    pushImage 1.12.1 open php7.2 apache
+    pushImage 1.12.1 open php7.2 fpm
+    pushImage 1.12.1 pro php7.0 apache
+    pushImage 1.12.1 pro php7.0 fpm
+    pushImage 1.12.1 pro php7.1 apache
+    pushImage 1.12.1 pro php7.1 fpm
+    pushImage 1.12.1 pro php7.2 apache
+    pushImage 1.12.1 pro php7.2 fpm
+    pushImage 1.12.4 open php7.0 apache
+    pushImage 1.12.4 open php7.0 fpm
+    pushImage 1.12.4 open php7.1 apache
+    pushImage 1.12.4 open php7.1 fpm
+    pushImage 1.12.4 open php7.2 apache
+    pushImage 1.12.4 open php7.2 fpm
+    pushImage 1.12.4 pro php7.0 apache
+    pushImage 1.12.4 pro php7.0 fpm
+    pushImage 1.12.4 pro php7.1 apache
+    pushImage 1.12.4 pro php7.1 fpm
+    pushImage 1.12.4 pro php7.2 apache
+    pushImage 1.12.4 pro php7.2 fpm
+    pushImage 1.13 pro php7.0 apache
+    pushImage 1.13 pro php7.0 fpm
+    pushImage 1.13 pro php7.1 apache
+    pushImage 1.13 pro php7.1 fpm
+    pushImage 1.13 pro php7.2 apache
+    pushImage 1.13 pro php7.2 fpm
+    pushImage 1.13 pro php7.3 apache
+    pushImage 1.13 pro php7.3 fpm
+}
+
+function pushImage {
+    local version="$1"
+    local edition="$2"
+    local php="$3"
+    local service="$4"
+    local tag="bheisig/idoit:${version}-${edition}-${php}-${service}"
+
+    log "Push image $tag to repository"
+
+    docker push "$tag" || \
+        abort "No push, no forward"
 }
 
 function printReadme {
