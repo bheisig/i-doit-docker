@@ -30,3 +30,9 @@ Long description
 -   First
 -   Second
 -   And so on…
+
+### Removed
+
+-   First
+-   Second
+-   And so on…
