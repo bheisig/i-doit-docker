@@ -80,7 +80,7 @@ Each image is build on the official PHP Docker image. We've got heavily inspired
 Run the latest version of i-doit pro with PHP 7.3 and Apache HTTPD 2.4:
 
 ~~~ {.bash}
-docker run i-doit-apache -p 80:80 bheisig/idoit:1.13-pro-php7.3-apache
+docker run --name i-doit-apache -p 80:80 bheisig/idoit:1.13-pro-php7.3-apache
 ~~~
 
 ### Run i-doit with PHP-FPM
@@ -88,7 +88,7 @@ docker run i-doit-apache -p 80:80 bheisig/idoit:1.13-pro-php7.3-apache
 Run the latest version of i-doit pro with PHP 7.3 and FPM:
 
 ~~~ {.bash}
-docker run i-doit-fpm -p 9000:9000 bheisig/idoit:1.13-pro-php7.3-fpm
+docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.13-pro-php7.3-fpm
 ~~~
 
 ### Available volumes
