@@ -26,6 +26,7 @@ RUN apt-get update; \
     docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr; \
     docker-php-ext-configure ldap --with-libdir="lib/$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
     docker-php-ext-install \
+        bcmath \
         gd \
         ldap \
         mysqli \
