@@ -20,7 +20,7 @@ function execute {
             printReadme
             ;;
         *)
-            abort "build|test|push"
+            printUsage
             ;;
     esac
 }
@@ -256,46 +256,46 @@ function pushImage {
 }
 
 function printReadme {
-    printSupportedTags 1.12.1 open php7.0 apache
-    printSupportedTags 1.12.1 open php7.0 fpm
-    printSupportedTags 1.12.1 open php7.1 apache
-    printSupportedTags 1.12.1 open php7.1 fpm
-    printSupportedTags 1.12.1 open php7.2 apache
-    printSupportedTags 1.12.1 open php7.2 fpm
-    printSupportedTags 1.12.1 pro php7.0 apache
-    printSupportedTags 1.12.1 pro php7.0 fpm
-    printSupportedTags 1.12.1 pro php7.1 apache
-    printSupportedTags 1.12.1 pro php7.1 fpm
-    printSupportedTags 1.12.1 pro php7.2 apache
-    printSupportedTags 1.12.1 pro php7.2 fpm
-    printSupportedTags 1.12.4 open php7.0 apache
-    printSupportedTags 1.12.4 open php7.0 fpm
-    printSupportedTags 1.12.4 open php7.1 apache
-    printSupportedTags 1.12.4 open php7.1 fpm
-    printSupportedTags 1.12.4 open php7.2 apache
-    printSupportedTags 1.12.4 open php7.2 fpm
-    printSupportedTags 1.12.4 pro php7.0 apache
-    printSupportedTags 1.12.4 pro php7.0 fpm
-    printSupportedTags 1.12.4 pro php7.1 apache
-    printSupportedTags 1.12.4 pro php7.1 fpm
-    printSupportedTags 1.12.4 pro php7.2 apache
-    printSupportedTags 1.12.4 pro php7.2 fpm
-    printSupportedTags 1.13 open php7.0 apache
-    printSupportedTags 1.13 open php7.0 fpm
-    printSupportedTags 1.13 open php7.1 apache
-    printSupportedTags 1.13 open php7.1 fpm
-    printSupportedTags 1.13 open php7.2 apache
-    printSupportedTags 1.13 open php7.2 fpm
-    printSupportedTags 1.13 open php7.3 apache
-    printSupportedTags 1.13 open php7.3 fpm
-    printSupportedTags 1.13 pro php7.0 apache
-    printSupportedTags 1.13 pro php7.0 fpm
-    printSupportedTags 1.13 pro php7.1 apache
-    printSupportedTags 1.13 pro php7.1 fpm
-    printSupportedTags 1.13 pro php7.2 apache
-    printSupportedTags 1.13 pro php7.2 fpm
-    printSupportedTags 1.13 pro php7.3 apache
     printSupportedTags 1.13 pro php7.3 fpm
+    printSupportedTags 1.13 pro php7.3 apache
+    printSupportedTags 1.13 pro php7.2 fpm
+    printSupportedTags 1.13 pro php7.2 apache
+    printSupportedTags 1.13 pro php7.1 fpm
+    printSupportedTags 1.13 pro php7.1 apache
+    printSupportedTags 1.13 pro php7.0 fpm
+    printSupportedTags 1.13 pro php7.0 apache
+    printSupportedTags 1.13 open php7.3 fpm
+    printSupportedTags 1.13 open php7.3 apache
+    printSupportedTags 1.13 open php7.2 fpm
+    printSupportedTags 1.13 open php7.2 apache
+    printSupportedTags 1.13 open php7.1 fpm
+    printSupportedTags 1.13 open php7.1 apache
+    printSupportedTags 1.13 open php7.0 fpm
+    printSupportedTags 1.13 open php7.0 apache
+    printSupportedTags 1.12.4 pro php7.2 fpm
+    printSupportedTags 1.12.4 pro php7.2 apache
+    printSupportedTags 1.12.4 pro php7.1 fpm
+    printSupportedTags 1.12.4 pro php7.1 apache
+    printSupportedTags 1.12.4 pro php7.0 fpm
+    printSupportedTags 1.12.4 pro php7.0 apache
+    printSupportedTags 1.12.4 open php7.2 fpm
+    printSupportedTags 1.12.4 open php7.2 apache
+    printSupportedTags 1.12.4 open php7.1 fpm
+    printSupportedTags 1.12.4 open php7.1 apache
+    printSupportedTags 1.12.4 open php7.0 fpm
+    printSupportedTags 1.12.4 open php7.0 apache
+    printSupportedTags 1.12.1 pro php7.2 fpm
+    printSupportedTags 1.12.1 pro php7.2 apache
+    printSupportedTags 1.12.1 pro php7.1 fpm
+    printSupportedTags 1.12.1 pro php7.1 apache
+    printSupportedTags 1.12.1 pro php7.0 fpm
+    printSupportedTags 1.12.1 pro php7.0 apache
+    printSupportedTags 1.12.1 open php7.2 fpm
+    printSupportedTags 1.12.1 open php7.2 apache
+    printSupportedTags 1.12.1 open php7.1 fpm
+    printSupportedTags 1.12.1 open php7.1 apache
+    printSupportedTags 1.12.1 open php7.0 fpm
+    printSupportedTags 1.12.1 open php7.0 apache
 }
 
 function printSupportedTags {
@@ -307,13 +307,17 @@ function printSupportedTags {
     log "-   \`${version}-${edition}-${php}-${service}\` ([\`Dockerfile\`](${version}/${edition}/${php}/${service}))"
 }
 
+function printUsage {
+    abort "build|test|push|print"
+}
+
 function finish {
     log "Done. Have fun :-)"
     exit 0
 }
 
 function abort {
-    echo -e "$1"  1>&2
+    log "$1"
     exit 1
 }
 
@@ -322,5 +326,9 @@ function log {
 }
 
 if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
+    if [[ -z "${1:-}" ]]; then
+        printUsage
+    fi
+
     execute "$1" && finish
 fi
