@@ -2,6 +2,9 @@
 
 Dockerized [i-doit CMDB](https://i-doit.com/)
 
+[![Stars](https://img.shields.io/docker/stars/bheisig/idoit.svg)](https://hub.docker.com/r/bheisig/idoit/)
+[![Pulls](https://img.shields.io/docker/pulls/bheisig/idoit.svg)](https://hub.docker.com/r/bheisig/idoit/)
+[![Image size](https://img.shields.io/microbadger/image-size/bheisig/idoit/1.13-pro-php7.3-fpm.svg)](https://hub.docker.com/r/bheisig/idoit/)
 [![Build Status](https://travis-ci.org/bheisig/i-doit-docker.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-docker)
 
 ## Not production-ready!
