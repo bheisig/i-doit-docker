@@ -16,6 +16,9 @@ function execute {
         "push")
             pushImages
             ;;
+        "pull")
+            pullImages
+            ;;
         "print")
             printReadme
             ;;
@@ -60,6 +63,28 @@ function buildImages {
     buildImage 1.13 pro php7.3 fpm
 }
 
+function pullImages {
+    pullImage php:7.4-rc-fpm-stretch
+    pullImage php:7.4-rc-apache-stretch
+    pullImage php:7.3-fpm-stretch
+    pullImage php:7.3-apache-stretch
+    pullImage php:7.2-fpm-stretch
+    pullImage php:7.2-apache-stretch
+    pullImage php:7.1-fpm-stretch
+    pullImage php:7.1-apache-stretch
+    pullImage php:7.0-fpm-stretch
+    pullImage php:7.0-apache-stretch
+}
+
+function pullImage {
+    local image="$1"
+
+    log "Pull $image from repository"
+
+    docker pull "$image" || \
+        abort "No pull"
+}
+
 function buildImage {
     local version="$1"
     local edition="$2"
@@ -71,8 +96,9 @@ function buildImage {
     log "Build $tag from $path"
 
     docker build \
-        "$path" \
-        -t "$tag" || \
+        -t "$tag" \
+        --no-cache \
+        "$path" || \
         abort "No build"
 }
 
@@ -308,7 +334,7 @@ function printSupportedTags {
 }
 
 function printUsage {
-    abort "build|test|push|print"
+    abort "test|pull|build|push|print"
 }
 
 function finish {
