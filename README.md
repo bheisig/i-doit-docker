@@ -76,7 +76,7 @@ i-doit is a configuration management database (CMDB), IT asset management (ITAM)
 
 ## How to use this image
 
-Each image is build on the official PHP Docker image. We've got heavily inspired by the well-documented [Nextcloud docker image](https://github.com/nextcloud/docker).
+Each image is built on the official PHP Docker image. We've got heavily inspired by the well-documented [Nextcloud docker image](https://github.com/nextcloud/docker). Thank you!
 
 ### Run i-doit with Apache HTTPD
 
@@ -120,7 +120,7 @@ _This is currently not working as smoothly as expected._
 
 ### Backup and restore
 
-For a fully backup and restore process you need to consider at least 3 sources:
+For a complete backup and restore process you need to consider at least 3 sources:
 
 1.  i-doit installation directory (see section "Available volumes")
 2.  System database (default: `idoit_system`)
