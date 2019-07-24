@@ -64,14 +64,14 @@ function buildImages {
 }
 
 function pullImages {
-    pullImage php:7.4-rc-fpm-stretch
-    pullImage php:7.4-rc-apache-stretch
-    pullImage php:7.3-fpm-stretch
-    pullImage php:7.3-apache-stretch
-    pullImage php:7.2-fpm-stretch
-    pullImage php:7.2-apache-stretch
-    pullImage php:7.1-fpm-stretch
-    pullImage php:7.1-apache-stretch
+    pullImage php:7.4-rc-fpm-buster
+    pullImage php:7.4-rc-apache-buster
+    pullImage php:7.3-fpm-buster
+    pullImage php:7.3-apache-buster
+    pullImage php:7.2-fpm-buster
+    pullImage php:7.2-apache-buster
+    pullImage php:7.1-fpm-buster
+    pullImage php:7.1-apache-buster
     pullImage php:7.0-fpm-stretch
     pullImage php:7.0-apache-stretch
 }

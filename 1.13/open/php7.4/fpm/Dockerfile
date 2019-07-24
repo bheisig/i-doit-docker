@@ -1,4 +1,4 @@
-FROM php:7.4-rc-fpm-stretch
+FROM php:7.4-rc-fpm-buster
 
 ARG DEBIAN_FRONTEND=noninteractive
 

@@ -1,4 +1,4 @@
-FROM php:7.4-rc-apache-stretch
+FROM php:7.4-rc-apache-buster
 
 ARG DEBIAN_FRONTEND=noninteractive
 
