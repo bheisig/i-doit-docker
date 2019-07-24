@@ -19,10 +19,6 @@
         "remark-preset-lint-recommended": "^3.0.3",
         "yaml-lint": "^1.2.4"
     },
-    "scripts": {
-        "lint-md": "./node_modules/.bin/remark . .github/ --frail --ignore-path .gitignore",
-        "lint-yaml": "./node_modules/.bin/yamllint *.yml *.yaml .*.yml .*.yaml"
-    },
     "remarkConfig": {
         "plugins": [
             "remark-preset-lint-recommended"

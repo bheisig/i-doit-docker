@@ -3,6 +3,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+BASEDIR="."
+
 function execute {
     local job="$1"
 
@@ -104,68 +106,63 @@ function buildImage {
 
 function test {
     npm audit || abort "No good"
-    npm run-script lint-md || abort "No good"
-    npm run-script lint-yaml || abort "No good"
+    lintMarkdownFiles
+    lintYAMLFiles
     lintDockerfiles
     lintShellScripts
 }
 
-function lintDockerfiles {
-    lintDockerfile 1.12.1 open php7.0 apache
-    lintDockerfile 1.12.1 open php7.0 fpm
-    lintDockerfile 1.12.1 open php7.1 apache
-    lintDockerfile 1.12.1 open php7.1 fpm
-    lintDockerfile 1.12.1 open php7.2 apache
-    lintDockerfile 1.12.1 open php7.2 fpm
-    lintDockerfile 1.12.1 pro php7.0 apache
-    lintDockerfile 1.12.1 pro php7.0 fpm
-    lintDockerfile 1.12.1 pro php7.1 apache
-    lintDockerfile 1.12.1 pro php7.1 fpm
-    lintDockerfile 1.12.1 pro php7.2 apache
-    lintDockerfile 1.12.1 pro php7.2 fpm
-    lintDockerfile 1.12.4 open php7.0 apache
-    lintDockerfile 1.12.4 open php7.0 fpm
-    lintDockerfile 1.12.4 open php7.1 apache
-    lintDockerfile 1.12.4 open php7.1 fpm
-    lintDockerfile 1.12.4 open php7.2 apache
-    lintDockerfile 1.12.4 open php7.2 fpm
-    lintDockerfile 1.12.4 pro php7.0 apache
-    lintDockerfile 1.12.4 pro php7.0 fpm
-    lintDockerfile 1.12.4 pro php7.1 apache
-    lintDockerfile 1.12.4 pro php7.1 fpm
-    lintDockerfile 1.12.4 pro php7.2 apache
-    lintDockerfile 1.12.4 pro php7.2 fpm
-    lintDockerfile 1.13 open php7.0 apache
-    lintDockerfile 1.13 open php7.0 fpm
-    lintDockerfile 1.13 open php7.1 apache
-    lintDockerfile 1.13 open php7.1 fpm
-    lintDockerfile 1.13 open php7.2 apache
-    lintDockerfile 1.13 open php7.2 fpm
-    lintDockerfile 1.13 open php7.3 apache
-    lintDockerfile 1.13 open php7.3 fpm
-    lintDockerfile 1.13 pro php7.0 apache
-    lintDockerfile 1.13 pro php7.0 fpm
-    lintDockerfile 1.13 pro php7.1 apache
-    lintDockerfile 1.13 pro php7.1 fpm
-    lintDockerfile 1.13 pro php7.2 apache
-    lintDockerfile 1.13 pro php7.2 fpm
-    lintDockerfile 1.13 pro php7.3 apache
-    lintDockerfile 1.13 pro php7.3 fpm
+function lintMarkdownFiles {
+    while IFS= read -r -d '' filePath; do
+        lintMarkdownFile "$filePath"
+    done < <(
+        find "$(git rev-parse --show-toplevel)" \
+            -type f -name "*.md" -not \
+            -exec git check-ignore -q {} \; -print0
+    )
+}
 
-    log "Lint apache/Dockerfile"
+function lintMarkdownFile {
+    local filePath="$1"
 
-    docker run --rm -i -v "$PWD:/opt/hadolint/" hadolint/hadolint \
-        hadolint --config /opt/hadolint/.hadolint.yaml - < \
-        apache/Dockerfile || \
+    log "Lint markdown file $filePath"
+
+    "${BASEDIR}/node_modules/.bin/remark" \
+        --frail --quiet "$filePath" > /dev/null || \
         abort "No good"
 }
 
+function lintYAMLFiles {
+    while IFS= read -r -d '' filePath; do
+        lintYAMLFile "$filePath"
+    done < <(
+        find "$(git rev-parse --show-toplevel)" \
+            -type f -name "*.y*ml" -not \
+            -exec git check-ignore -q {} \; -print0
+    )
+}
+
+function lintYAMLFile {
+    local filePath="$1"
+
+    log "Lint YAML file $filePath"
+
+    "${BASEDIR}/node_modules/.bin/yamllint" "$filePath" || \
+        abort "No good"
+}
+
+function lintDockerfiles {
+    while IFS= read -r -d '' filePath; do
+        lintDockerfile "$filePath"
+    done < <(
+        find "$(git rev-parse --show-toplevel)" \
+            -type f -name "Dockerfile" -not \
+            -exec git check-ignore -q {} \; -print0
+    )
+}
+
 function lintDockerfile {
-    local version="$1"
-    local edition="$2"
-    local php="$3"
-    local service="$4"
-    local dockerfile="${version}/${edition}/${php}/${service}/Dockerfile"
+    local dockerfile="$1"
 
     log "Lint $dockerfile"
 
@@ -176,56 +173,20 @@ function lintDockerfile {
 }
 
 function lintShellScripts {
-    log "Lint shell scripts ./*.sh"
-    lintShellScript ./*.sh
-    log "Lint shell scripts apache/*.sh"
-    lintShellScript apache/*.sh
-
-    lintShellScript 1.12.1/open/php7.0/apache/*.sh
-    lintShellScript 1.12.1/open/php7.0/fpm/*.sh
-    lintShellScript 1.12.1/open/php7.1/apache/*.sh
-    lintShellScript 1.12.1/open/php7.1/fpm/*.sh
-    lintShellScript 1.12.1/open/php7.2/apache/*.sh
-    lintShellScript 1.12.1/open/php7.2/fpm/*.sh
-    lintShellScript 1.12.1/pro/php7.0/apache/*.sh
-    lintShellScript 1.12.1/pro/php7.0/fpm/*.sh
-    lintShellScript 1.12.1/pro/php7.1/apache/*.sh
-    lintShellScript 1.12.1/pro/php7.1/fpm/*.sh
-    lintShellScript 1.12.1/pro/php7.2/apache/*.sh
-    lintShellScript 1.12.1/pro/php7.2/fpm/*.sh
-    lintShellScript 1.12.4/open/php7.0/apache/*.sh
-    lintShellScript 1.12.4/open/php7.0/fpm/*.sh
-    lintShellScript 1.12.4/open/php7.1/apache/*.sh
-    lintShellScript 1.12.4/open/php7.1/fpm/*.sh
-    lintShellScript 1.12.4/open/php7.2/apache/*.sh
-    lintShellScript 1.12.4/open/php7.2/fpm/*.sh
-    lintShellScript 1.12.4/pro/php7.0/apache/*.sh
-    lintShellScript 1.12.4/pro/php7.0/fpm/*.sh
-    lintShellScript 1.12.4/pro/php7.1/apache/*.sh
-    lintShellScript 1.12.4/pro/php7.1/fpm/*.sh
-    lintShellScript 1.12.4/pro/php7.2/apache/*.sh
-    lintShellScript 1.12.4/pro/php7.2/fpm/*.sh
-    lintShellScript 1.13/open/php7.0/apache/*.sh
-    lintShellScript 1.13/open/php7.0/fpm/*.sh
-    lintShellScript 1.13/open/php7.1/apache/*.sh
-    lintShellScript 1.13/open/php7.1/fpm/*.sh
-    lintShellScript 1.13/open/php7.2/apache/*.sh
-    lintShellScript 1.13/open/php7.2/fpm/*.sh
-    lintShellScript 1.13/open/php7.3/apache/*.sh
-    lintShellScript 1.13/open/php7.3/fpm/*.sh
-    lintShellScript 1.13/pro/php7.0/apache/*.sh
-    lintShellScript 1.13/pro/php7.0/fpm/*.sh
-    lintShellScript 1.13/pro/php7.1/apache/*.sh
-    lintShellScript 1.13/pro/php7.1/fpm/*.sh
-    lintShellScript 1.13/pro/php7.2/apache/*.sh
-    lintShellScript 1.13/pro/php7.2/fpm/*.sh
-    lintShellScript 1.13/pro/php7.3/apache/*.sh
-    lintShellScript 1.13/pro/php7.3/fpm/*.sh
+    while IFS= read -r -d '' filePath; do
+        lintShellScript "$filePath"
+    done < <(
+        find . \
+            -type f -name "*.sh" -not \
+            -exec git check-ignore -q {} \; -print0
+    )
 }
 
 function lintShellScript {
     local filePath="$1"
+
     log "Lint shell script $filePath"
+
     docker run \
         -v "$(pwd):/scripts" \
         koalaman/shellcheck \
@@ -352,6 +313,8 @@ function log {
 }
 
 if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
+    BASEDIR="$(dirname "$0")"
+
     if [[ -z "${1:-}" ]]; then
         printUsage
     fi
