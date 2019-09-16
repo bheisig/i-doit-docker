@@ -152,6 +152,10 @@ function buildImage {
 
     docker build \
         -t "$tag" \
+        --no-cache \
+        --quiet \
+        --force-rm \
+        --compress \
         "$path" || \
         abort "No build"
 }
