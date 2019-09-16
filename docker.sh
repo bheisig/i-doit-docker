@@ -3,6 +3,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+: "${DOCKER_USERNAME:=""}"
+: "${DOCKER_PASSWORD:=""}"
+
 BASEDIR="."
 
 function execute {
@@ -12,22 +15,40 @@ function execute {
         "build")
             buildImages
             ;;
-        "test")
-            test
+        "help")
+            printUsage
             ;;
-        "push")
-            pushImages
+        "login")
+            loginToDockerHub
+            ;;
+        "print")
+            printReadme
             ;;
         "pull")
             pullImages
             ;;
-        "print")
-            printReadme
+        "push")
+            pushImages
+            ;;
+        "test")
+            runTests
             ;;
         *)
             printUsage
             ;;
     esac
+}
+
+function loginToDockerHub {
+    test -n "$DOCKER_USERNAME" || \
+        abort "Unknown Docker ID"
+
+    test -n "$DOCKER_PASSWORD" || \
+        abort "Empty password for Docker ID $DOCKER_USERNAME"
+
+    echo "$DOCKER_PASSWORD" | \
+        docker login -u "$DOCKER_USERNAME" --password-stdin || \
+        abort "Unable to sign in to Docker Hub with Docker ID $DOCKER_USERNAME"
 }
 
 function buildImages {
@@ -136,7 +157,7 @@ function buildImage {
         abort "No build"
 }
 
-function test {
+function runTests {
     npm audit || abort "No good"
     lintMarkdownFiles
     lintYAMLFiles
@@ -383,11 +404,10 @@ function printSupportedTags {
 }
 
 function printUsage {
-    abort "test|pull|build|push|print"
+    log "test|pull|build|push|print"
 }
 
 function finish {
-    log "Done. Have fun :-)"
     exit 0
 }
 
