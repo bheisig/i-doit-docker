@@ -152,7 +152,6 @@ function buildImage {
 
     docker build \
         -t "$tag" \
-        --no-cache \
         "$path" || \
         abort "No build"
 }
