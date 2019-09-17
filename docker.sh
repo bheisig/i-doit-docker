@@ -19,6 +19,9 @@ function execute {
         "login")
             loginToDockerHub
             ;;
+        "logout")
+            logoutFromDockerHub
+            ;;
         "print")
             printReadme
             ;;
@@ -47,6 +50,11 @@ function loginToDockerHub {
     echo "$DOCKER_PASSWORD" | \
         docker login -u "$DOCKER_USERNAME" --password-stdin || \
         abort "Unable to sign in to Docker Hub with Docker ID $DOCKER_USERNAME"
+}
+
+function logoutFromDockerHub {
+    docker logout || \
+    abort "Unable to logout from Docker Hub"
 }
 
 function buildImages {
@@ -426,12 +434,27 @@ function printSupportedTags {
     local edition="$2"
     local php="$3"
     local service="$4"
+    local tag=""
+    local path=""
 
-    log "-   \`${version}-${edition}-${php}-${service}\` ([\`Dockerfile\`](${version}/${edition}/${php}/${service}))"
+    tag="${version}-${edition}-${php}-${service}"
+    path="${version}/${edition}/${php}/${service}"
+
+    log "-   \`${tag}\` ([\`Dockerfile\`](${path}))"
 }
 
 function printUsage {
-    log "test|pull|build|push|print"
+    log "build|help|login|logout|print|pull|push|test"
+}
+
+function setUp {
+    test "$(whoami)" != root || \
+        log "Please do not run this script as root user"
+
+    for command in "docker"; do
+        command -v "$command" > /dev/null || \
+            abort "Command \"${command}\" is missing"
+    done
 }
 
 function finish {
@@ -448,9 +471,5 @@ function log {
 }
 
 if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
-    if [[ -z "${1:-}" ]]; then
-        printUsage
-    fi
-
-    execute "$1" && finish
+    setUp && execute "${1-help}" && finish
 fi
