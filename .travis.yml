@@ -1,9 +1,6 @@
 os: xenial
 
-language: node_js
-
-node_js:
-  - "lts/*"
+language: minimal
 
 services:
   - docker
@@ -14,10 +11,6 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - docker version
-  - npm i -g npm@6
-  - npm install
-  - docker pull hadolint/hadolint
-  - docker pull koalaman/shellcheck
 
 script:
   - ./docker.sh test

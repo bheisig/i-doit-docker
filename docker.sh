@@ -153,28 +153,50 @@ function buildImage {
     docker build \
         -t "$tag" \
         --no-cache \
-        --quiet \
         --force-rm \
-        --compress \
         "$path" || \
         abort "No build"
 }
 
 function runTests {
-    npm audit || abort "No good"
+    pullImagesForTesting
+    installNodePackages
+    auditNodePackages
     lintMarkdownFiles
     lintYAMLFiles
     lintDockerfiles
     lintShellScripts
 }
 
+function pullImagesForTesting {
+    log "Pull Docker images"
+    pullImage hadolint/hadolint:latest
+    pullImage koalaman/shellcheck:latest
+    pullImage node:lts
+    pullImage cytopia/yamllint:latest
+}
+
+function installNodePackages {
+    log "Install Node packages"
+
+    docker run --rm --name idoitdocker-npm \
+        -v "$PWD":/usr/src/app -w /usr/src/app node:lts \
+        npm install || abort "No good"
+}
+
+function auditNodePackages {
+    docker run --rm --name idoitdocker-npm \
+        -v "$PWD":/usr/src/app -w /usr/src/app node:lts \
+        npm audit || abort "No good"
+}
+
 function lintMarkdownFiles {
-    while IFS= read -r -d '' filePath; do
+    while read -r filePath; do
         lintMarkdownFile "$filePath"
     done < <(
         find "$(git rev-parse --show-toplevel)" \
             -type f -name "*.md" -not \
-            -exec git check-ignore -q {} \; -print0
+            -exec git check-ignore -q {} \; -printf '%P\n'
     )
 }
 
@@ -183,18 +205,20 @@ function lintMarkdownFile {
 
     log "Lint markdown file $filePath"
 
-    "${BASEDIR}/node_modules/.bin/remark" \
-        --frail --quiet "$filePath" > /dev/null || \
+    docker run --rm --name idoitdocker-npm \
+        -v "$PWD":/usr/src/app -w /usr/src/app node:lts \
+        ./node_modules/.bin/remark \
+        --frail --quiet < "$filePath" > /dev/null || \
         abort "No good"
 }
 
 function lintYAMLFiles {
-    while IFS= read -r -d '' filePath; do
+    while read -r filePath; do
         lintYAMLFile "$filePath"
     done < <(
         find "$(git rev-parse --show-toplevel)" \
             -type f -name "*.y*ml" -not \
-            -exec git check-ignore -q {} \; -print0
+            -exec git check-ignore -q {} \; -printf '%P\n'
     )
 }
 
@@ -203,17 +227,19 @@ function lintYAMLFile {
 
     log "Lint YAML file $filePath"
 
-    "${BASEDIR}/node_modules/.bin/yamllint" "$filePath" || \
+    docker run --rm --name idoitdocker-yamllint \
+        -v "$PWD":/data cytopia/yamllint:latest \
+        "$filePath" || \
         abort "No good"
 }
 
 function lintDockerfiles {
-    while IFS= read -r -d '' filePath; do
+    while read -r filePath; do
         lintDockerfile "$filePath"
     done < <(
         find "$(git rev-parse --show-toplevel)" \
             -type f -name "Dockerfile" -not \
-            -exec git check-ignore -q {} \; -print0
+            -exec git check-ignore -q {} \; -printf '%P\n'
     )
 }
 
@@ -222,19 +248,19 @@ function lintDockerfile {
 
     log "Lint $dockerfile"
 
-    docker run --rm -i -v "$PWD:/opt/hadolint/" hadolint/hadolint \
+    docker run --rm -i -v "$PWD:/opt/hadolint/" hadolint/hadolint:latest \
         hadolint --config /opt/hadolint/.hadolint.yaml - < \
         "$dockerfile" || \
         abort "No good"
 }
 
 function lintShellScripts {
-    while IFS= read -r -d '' filePath; do
+    while read -r filePath; do
         lintShellScript "$filePath"
     done < <(
         find . \
             -type f -name "*.sh" -not \
-            -exec git check-ignore -q {} \; -print0
+            -exec git check-ignore -q {} \; -printf '%P\n'
     )
 }
 
@@ -245,7 +271,7 @@ function lintShellScript {
 
     docker run \
         -v "$(pwd):/scripts" \
-        koalaman/shellcheck \
+        koalaman/shellcheck:latest \
         "/scripts/$filePath" || \
         abort "No good"
 }
