@@ -6,8 +6,6 @@ IFS=$'\n\t'
 : "${DOCKER_USERNAME:=""}"
 : "${DOCKER_PASSWORD:=""}"
 
-BASEDIR="."
-
 function execute {
     local job="$1"
 
@@ -450,8 +448,6 @@ function log {
 }
 
 if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
-    BASEDIR="$(dirname "$0")"
-
     if [[ -z "${1:-}" ]]; then
         printUsage
     fi
