@@ -5,6 +5,7 @@ IFS=$'\n\t'
 
 : "${DOCKER_USERNAME:=""}"
 : "${DOCKER_PASSWORD:=""}"
+: "${DOCKER_IMAGE:="bheisig/idoit"}"
 
 function execute {
     local job="$1"
@@ -12,6 +13,9 @@ function execute {
     case "$job" in
         "build")
             buildImages
+            ;;
+        "clean")
+            cleanUp
             ;;
         "help")
             printUsage
@@ -172,14 +176,12 @@ function buildImage {
     local php="$3"
     local service="$4"
     local path="${version}/${edition}/${php}/${service}/"
-    local tag="bheisig/idoit:${version}-${edition}-${php}-${service}"
+    local tag="${DOCKER_IMAGE}:${version}-${edition}-${php}-${service}"
 
     log "Build $tag from $path"
 
     docker build \
         -t "$tag" \
-        --no-cache \
-        --force-rm \
         "$path" || \
         abort "No build"
 }
@@ -394,7 +396,7 @@ function pushImage {
     local edition="$2"
     local php="$3"
     local service="$4"
-    local tag="bheisig/idoit:${version}-${edition}-${php}-${service}"
+    local tag="${DOCKER_IMAGE}:${version}-${edition}-${php}-${service}"
 
     log "Push image $tag to repository"
 
@@ -503,8 +505,31 @@ function printSupportedTags {
     log "-   \`${tag}\` ([\`Dockerfile\`](${path}))"
 }
 
+function cleanUp {
+    local amount="0"
+
+    log "Clean up"
+
+    amount="$(docker images -q -a "${DOCKER_IMAGE}" | wc -l)"
+
+    case "$amount" in
+        "0")
+            log "Already cleaned up"
+            return 0
+            ;;
+        "1")
+            log "Remove 1 docker image"
+            ;;
+        *)  log "Remove $amount docker images"
+            ;;
+    esac
+
+    docker rmi "$(docker images -q -a "${DOCKER_IMAGE}")" || \
+        abort "Unable to remove docker images"
+}
+
 function printUsage {
-    log "build|help|login|logout|print|pull|push|test"
+    log "build|clean|help|login|logout|print|pull|push|test"
 }
 
 function setUp {
