@@ -524,7 +524,7 @@ function cleanUp {
             ;;
     esac
 
-    docker rmi "$(docker images -q -a "${DOCKER_IMAGE}")" || \
+    docker rmi "$(docker images -q "${DOCKER_IMAGE}")" || \
         abort "Unable to remove docker images"
 }
 
