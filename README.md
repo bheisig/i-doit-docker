@@ -116,7 +116,7 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 
 ## What is i-doit?
 
-i-doit is a configuration management database (CMDB), IT asset management (ITAM) and IT documentation tool
+i-doit ("I document IT") is a fully-featured Web application for CMDB (Configuration Management Databases), IT asset management (ITAM) and IT documentation. i-doit is maintained by the company synetics GmbH, located in Düsseldorf/Germany.
 
 ## How to use this image
 
