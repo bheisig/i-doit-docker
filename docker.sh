@@ -510,7 +510,7 @@ function cleanUp {
 
     log "Clean up"
 
-    amount="$(docker images -q -a "${DOCKER_IMAGE}" | wc -l)"
+    amount="$(docker images -q "${DOCKER_IMAGE}" | wc -l)"
 
     case "$amount" in
         "0")
@@ -518,13 +518,13 @@ function cleanUp {
             return 0
             ;;
         "1")
-            log "Remove 1 docker image"
+            log "Remove 1 docker image by name ${DOCKER_IMAGE}"
             ;;
-        *)  log "Remove $amount docker images"
+        *)  log "Remove $amount docker images by name ${DOCKER_IMAGE}"
             ;;
     esac
 
-    docker rmi "$(docker images -q "${DOCKER_IMAGE}")" || \
+    docker rmi -f "$(docker images -q "${DOCKER_IMAGE}")" || \
         abort "Unable to remove docker images"
 }
 
