@@ -154,6 +154,14 @@ function buildImages {
     buildImage 1.14 pro php7.3 fpm
     buildImage 1.14 pro php7.4 apache
     buildImage 1.14 pro php7.4 fpm
+    buildImage 1.14 open php7.1 apache
+    buildImage 1.14 open php7.1 fpm
+    buildImage 1.14 open php7.2 apache
+    buildImage 1.14 open php7.2 fpm
+    buildImage 1.14 open php7.3 apache
+    buildImage 1.14 open php7.3 fpm
+    buildImage 1.14 open php7.4 apache
+    buildImage 1.14 open php7.4 fpm
 }
 
 function pullImages {
@@ -405,6 +413,14 @@ function pushImages {
     pushImage 1.14 pro php7.3 fpm
     pushImage 1.14 pro php7.4 apache
     pushImage 1.14 pro php7.4 fpm
+    pushImage 1.14 open php7.1 apache
+    pushImage 1.14 open php7.1 fpm
+    pushImage 1.14 open php7.2 apache
+    pushImage 1.14 open php7.2 fpm
+    pushImage 1.14 open php7.3 apache
+    pushImage 1.14 open php7.3 fpm
+    pushImage 1.14 open php7.4 apache
+    pushImage 1.14 open php7.4 fpm
 }
 
 function pushImage {
@@ -429,6 +445,14 @@ function printReadme {
     printSupportedTags 1.14 pro php7.2 apache
     printSupportedTags 1.14 pro php7.1 fpm
     printSupportedTags 1.14 pro php7.1 apache
+    printSupportedTags 1.14 open php7.4 fpm
+    printSupportedTags 1.14 open php7.4 apache
+    printSupportedTags 1.14 open php7.3 fpm
+    printSupportedTags 1.14 open php7.3 apache
+    printSupportedTags 1.14 open php7.2 fpm
+    printSupportedTags 1.14 open php7.2 apache
+    printSupportedTags 1.14 open php7.1 fpm
+    printSupportedTags 1.14 open php7.1 apache
     printSupportedTags 1.13.2 pro php7.4 fpm
     printSupportedTags 1.13.2 pro php7.4 apache
     printSupportedTags 1.13.2 pro php7.3 fpm
@@ -548,7 +572,9 @@ function cleanUp {
             ;;
     esac
 
-    docker rmi -f "$(docker images -q "${DOCKER_IMAGE}")" || \
+    # We need word splitting:
+    # shellcheck disable=SC2046
+    docker rmi -f $(docker images -q "${DOCKER_IMAGE}") || \
         abort "Unable to remove docker images"
 }
 

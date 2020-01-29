@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add i-doit pro/open, versions 1.13.1, 1.13.2, and 1.14
+-   Add i-doit pro/open, versions 1.13.1, 1.13.2, and 1.14
+
+### Fixed
+
+-   Ensure to remove all remaining docker images while cleaning up
 
 ## 0.1.0 – 2019-07-24
 
