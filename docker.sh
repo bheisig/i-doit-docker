@@ -62,30 +62,6 @@ function logoutFromDockerHub {
 }
 
 function buildImages {
-    buildImage 1.12.1 open php7.0 apache
-    buildImage 1.12.1 open php7.0 fpm
-    buildImage 1.12.1 open php7.1 apache
-    buildImage 1.12.1 open php7.1 fpm
-    buildImage 1.12.1 open php7.2 apache
-    buildImage 1.12.1 open php7.2 fpm
-    buildImage 1.12.1 pro php7.0 apache
-    buildImage 1.12.1 pro php7.0 fpm
-    buildImage 1.12.1 pro php7.1 apache
-    buildImage 1.12.1 pro php7.1 fpm
-    buildImage 1.12.1 pro php7.2 apache
-    buildImage 1.12.1 pro php7.2 fpm
-    buildImage 1.12.4 open php7.0 apache
-    buildImage 1.12.4 open php7.0 fpm
-    buildImage 1.12.4 open php7.1 apache
-    buildImage 1.12.4 open php7.1 fpm
-    buildImage 1.12.4 open php7.2 apache
-    buildImage 1.12.4 open php7.2 fpm
-    buildImage 1.12.4 pro php7.0 apache
-    buildImage 1.12.4 pro php7.0 fpm
-    buildImage 1.12.4 pro php7.1 apache
-    buildImage 1.12.4 pro php7.1 fpm
-    buildImage 1.12.4 pro php7.2 apache
-    buildImage 1.12.4 pro php7.2 fpm
     buildImage 1.13 pro php7.0 apache
     buildImage 1.13 pro php7.0 fpm
     buildImage 1.13 pro php7.1 apache
@@ -321,30 +297,6 @@ function lintShellScript {
 }
 
 function pushImages {
-    pushImage 1.12.1 open php7.0 apache
-    pushImage 1.12.1 open php7.0 fpm
-    pushImage 1.12.1 open php7.1 apache
-    pushImage 1.12.1 open php7.1 fpm
-    pushImage 1.12.1 open php7.2 apache
-    pushImage 1.12.1 open php7.2 fpm
-    pushImage 1.12.1 pro php7.0 apache
-    pushImage 1.12.1 pro php7.0 fpm
-    pushImage 1.12.1 pro php7.1 apache
-    pushImage 1.12.1 pro php7.1 fpm
-    pushImage 1.12.1 pro php7.2 apache
-    pushImage 1.12.1 pro php7.2 fpm
-    pushImage 1.12.4 open php7.0 apache
-    pushImage 1.12.4 open php7.0 fpm
-    pushImage 1.12.4 open php7.1 apache
-    pushImage 1.12.4 open php7.1 fpm
-    pushImage 1.12.4 open php7.2 apache
-    pushImage 1.12.4 open php7.2 fpm
-    pushImage 1.12.4 pro php7.0 apache
-    pushImage 1.12.4 pro php7.0 fpm
-    pushImage 1.12.4 pro php7.1 apache
-    pushImage 1.12.4 pro php7.1 fpm
-    pushImage 1.12.4 pro php7.2 apache
-    pushImage 1.12.4 pro php7.2 fpm
     pushImage 1.13 pro php7.0 apache
     pushImage 1.13 pro php7.0 fpm
     pushImage 1.13 pro php7.1 apache
@@ -513,30 +465,6 @@ function printReadme {
     printSupportedTags 1.13 open php7.1 apache
     printSupportedTags 1.13 open php7.0 fpm
     printSupportedTags 1.13 open php7.0 apache
-    printSupportedTags 1.12.4 pro php7.2 fpm
-    printSupportedTags 1.12.4 pro php7.2 apache
-    printSupportedTags 1.12.4 pro php7.1 fpm
-    printSupportedTags 1.12.4 pro php7.1 apache
-    printSupportedTags 1.12.4 pro php7.0 fpm
-    printSupportedTags 1.12.4 pro php7.0 apache
-    printSupportedTags 1.12.4 open php7.2 fpm
-    printSupportedTags 1.12.4 open php7.2 apache
-    printSupportedTags 1.12.4 open php7.1 fpm
-    printSupportedTags 1.12.4 open php7.1 apache
-    printSupportedTags 1.12.4 open php7.0 fpm
-    printSupportedTags 1.12.4 open php7.0 apache
-    printSupportedTags 1.12.1 pro php7.2 fpm
-    printSupportedTags 1.12.1 pro php7.2 apache
-    printSupportedTags 1.12.1 pro php7.1 fpm
-    printSupportedTags 1.12.1 pro php7.1 apache
-    printSupportedTags 1.12.1 pro php7.0 fpm
-    printSupportedTags 1.12.1 pro php7.0 apache
-    printSupportedTags 1.12.1 open php7.2 fpm
-    printSupportedTags 1.12.1 open php7.2 apache
-    printSupportedTags 1.12.1 open php7.1 fpm
-    printSupportedTags 1.12.1 open php7.1 apache
-    printSupportedTags 1.12.1 open php7.0 fpm
-    printSupportedTags 1.12.1 open php7.0 apache
 }
 
 function printSupportedTags {
