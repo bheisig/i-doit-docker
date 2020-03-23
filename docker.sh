@@ -586,10 +586,8 @@ function setUp {
     test "$(whoami)" != root || \
         log "Please do not run this script as root user"
 
-    for command in "docker"; do
-        command -v "$command" > /dev/null || \
-            abort "Command \"${command}\" is missing"
-    done
+    command -v docker > /dev/null || \
+        abort "Command \"docker\" is missing"
 }
 
 function finish {
