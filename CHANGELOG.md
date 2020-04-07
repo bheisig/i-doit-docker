@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Add i-doit pro/open, versions 1.13.1, 1.13.2, and 1.14
+-   Add i-doit pro/open, versions 1.13.1, 1.13.2, 1.14 and 1.14.1
+-   Add `./docker.sh fix` to fix file permissions
 
 ### Fixed
 

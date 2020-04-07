@@ -4,7 +4,7 @@ Dockerized [i-doit CMDB](https://i-doit.com/)
 
 [![Stars](https://img.shields.io/docker/stars/bheisig/idoit.svg)](https://hub.docker.com/r/bheisig/idoit/)
 [![Pulls](https://img.shields.io/docker/pulls/bheisig/idoit.svg)](https://hub.docker.com/r/bheisig/idoit/)
-[![Image size](https://img.shields.io/microbadger/image-size/bheisig/idoit/1.14.1-pro-php7.4-fpm.svg)](https://hub.docker.com/r/bheisig/idoit/)
+[![Image size](https://img.shields.io/microbadger/image-size/bheisig/idoit/1.14.1-open-php7.4-fpm.svg)](https://hub.docker.com/r/bheisig/idoit/)
 [![Build Status](https://travis-ci.org/bheisig/i-doit-docker.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-docker)
 
 ## Not production-ready!
@@ -15,6 +15,14 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 
 ## Supported tags and respective `Dockerfile` links
 
+-   `1.14.1-open-php7.4-fpm` ([`Dockerfile`](1.14.1/open/php7.4/fpm))
+-   `1.14.1-open-php7.4-apache` ([`Dockerfile`](1.14.1/open/php7.4/apache))
+-   `1.14.1-open-php7.3-fpm` ([`Dockerfile`](1.14.1/open/php7.3/fpm))
+-   `1.14.1-open-php7.3-apache` ([`Dockerfile`](1.14.1/open/php7.3/apache))
+-   `1.14.1-open-php7.2-fpm` ([`Dockerfile`](1.14.1/open/php7.2/fpm))
+-   `1.14.1-open-php7.2-apache` ([`Dockerfile`](1.14.1/open/php7.2/apache))
+-   `1.14.1-open-php7.1-fpm` ([`Dockerfile`](1.14.1/open/php7.1/fpm))
+-   `1.14.1-open-php7.1-apache` ([`Dockerfile`](1.14.1/open/php7.1/apache))
 -   `1.14.1-pro-php7.4-fpm` ([`Dockerfile`](1.14.1/pro/php7.4/fpm))
 -   `1.14.1-pro-php7.4-apache` ([`Dockerfile`](1.14.1/pro/php7.4/apache))
 -   `1.14.1-pro-php7.3-fpm` ([`Dockerfile`](1.14.1/pro/php7.3/fpm))
@@ -23,14 +31,6 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 -   `1.14.1-pro-php7.2-apache` ([`Dockerfile`](1.14.1/pro/php7.2/apache))
 -   `1.14.1-pro-php7.1-fpm` ([`Dockerfile`](1.14.1/pro/php7.1/fpm))
 -   `1.14.1-pro-php7.1-apache` ([`Dockerfile`](1.14.1/pro/php7.1/apache))
--   `1.14-pro-php7.4-fpm` ([`Dockerfile`](1.14/pro/php7.4/fpm))
--   `1.14-pro-php7.4-apache` ([`Dockerfile`](1.14/pro/php7.4/apache))
--   `1.14-pro-php7.3-fpm` ([`Dockerfile`](1.14/pro/php7.3/fpm))
--   `1.14-pro-php7.3-apache` ([`Dockerfile`](1.14/pro/php7.3/apache))
--   `1.14-pro-php7.2-fpm` ([`Dockerfile`](1.14/pro/php7.2/fpm))
--   `1.14-pro-php7.2-apache` ([`Dockerfile`](1.14/pro/php7.2/apache))
--   `1.14-pro-php7.1-fpm` ([`Dockerfile`](1.14/pro/php7.1/fpm))
--   `1.14-pro-php7.1-apache` ([`Dockerfile`](1.14/pro/php7.1/apache))
 -   `1.14-open-php7.4-fpm` ([`Dockerfile`](1.14/open/php7.4/fpm))
 -   `1.14-open-php7.4-apache` ([`Dockerfile`](1.14/open/php7.4/apache))
 -   `1.14-open-php7.3-fpm` ([`Dockerfile`](1.14/open/php7.3/fpm))
@@ -39,16 +39,14 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 -   `1.14-open-php7.2-apache` ([`Dockerfile`](1.14/open/php7.2/apache))
 -   `1.14-open-php7.1-fpm` ([`Dockerfile`](1.14/open/php7.1/fpm))
 -   `1.14-open-php7.1-apache` ([`Dockerfile`](1.14/open/php7.1/apache))
--   `1.13.2-pro-php7.4-fpm` ([`Dockerfile`](1.13.2/pro/php7.4/fpm))
--   `1.13.2-pro-php7.4-apache` ([`Dockerfile`](1.13.2/pro/php7.4/apache))
--   `1.13.2-pro-php7.3-fpm` ([`Dockerfile`](1.13.2/pro/php7.3/fpm))
--   `1.13.2-pro-php7.3-apache` ([`Dockerfile`](1.13.2/pro/php7.3/apache))
--   `1.13.2-pro-php7.2-fpm` ([`Dockerfile`](1.13.2/pro/php7.2/fpm))
--   `1.13.2-pro-php7.2-apache` ([`Dockerfile`](1.13.2/pro/php7.2/apache))
--   `1.13.2-pro-php7.1-fpm` ([`Dockerfile`](1.13.2/pro/php7.1/fpm))
--   `1.13.2-pro-php7.1-apache` ([`Dockerfile`](1.13.2/pro/php7.1/apache))
--   `1.13.2-pro-php7.0-fpm` ([`Dockerfile`](1.13.2/pro/php7.0/fpm))
--   `1.13.2-pro-php7.0-apache` ([`Dockerfile`](1.13.2/pro/php7.0/apache))
+-   `1.14-pro-php7.4-fpm` ([`Dockerfile`](1.14/pro/php7.4/fpm))
+-   `1.14-pro-php7.4-apache` ([`Dockerfile`](1.14/pro/php7.4/apache))
+-   `1.14-pro-php7.3-fpm` ([`Dockerfile`](1.14/pro/php7.3/fpm))
+-   `1.14-pro-php7.3-apache` ([`Dockerfile`](1.14/pro/php7.3/apache))
+-   `1.14-pro-php7.2-fpm` ([`Dockerfile`](1.14/pro/php7.2/fpm))
+-   `1.14-pro-php7.2-apache` ([`Dockerfile`](1.14/pro/php7.2/apache))
+-   `1.14-pro-php7.1-fpm` ([`Dockerfile`](1.14/pro/php7.1/fpm))
+-   `1.14-pro-php7.1-apache` ([`Dockerfile`](1.14/pro/php7.1/apache))
 -   `1.13.2-open-php7.4-fpm` ([`Dockerfile`](1.13.2/open/php7.4/fpm))
 -   `1.13.2-open-php7.4-apache` ([`Dockerfile`](1.13.2/open/php7.4/apache))
 -   `1.13.2-open-php7.3-fpm` ([`Dockerfile`](1.13.2/open/php7.3/fpm))
@@ -59,16 +57,16 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 -   `1.13.2-open-php7.1-apache` ([`Dockerfile`](1.13.2/open/php7.1/apache))
 -   `1.13.2-open-php7.0-fpm` ([`Dockerfile`](1.13.2/open/php7.0/fpm))
 -   `1.13.2-open-php7.0-apache` ([`Dockerfile`](1.13.2/open/php7.0/apache))
--   `1.13.1-pro-php7.4-fpm` ([`Dockerfile`](1.13.1/pro/php7.4/fpm))
--   `1.13.1-pro-php7.4-apache` ([`Dockerfile`](1.13.1/pro/php7.4/apache))
--   `1.13.1-pro-php7.3-fpm` ([`Dockerfile`](1.13.1/pro/php7.3/fpm))
--   `1.13.1-pro-php7.3-apache` ([`Dockerfile`](1.13.1/pro/php7.3/apache))
--   `1.13.1-pro-php7.2-fpm` ([`Dockerfile`](1.13.1/pro/php7.2/fpm))
--   `1.13.1-pro-php7.2-apache` ([`Dockerfile`](1.13.1/pro/php7.2/apache))
--   `1.13.1-pro-php7.1-fpm` ([`Dockerfile`](1.13.1/pro/php7.1/fpm))
--   `1.13.1-pro-php7.1-apache` ([`Dockerfile`](1.13.1/pro/php7.1/apache))
--   `1.13.1-pro-php7.0-fpm` ([`Dockerfile`](1.13.1/pro/php7.0/fpm))
--   `1.13.1-pro-php7.0-apache` ([`Dockerfile`](1.13.1/pro/php7.0/apache))
+-   `1.13.2-pro-php7.4-fpm` ([`Dockerfile`](1.13.2/pro/php7.4/fpm))
+-   `1.13.2-pro-php7.4-apache` ([`Dockerfile`](1.13.2/pro/php7.4/apache))
+-   `1.13.2-pro-php7.3-fpm` ([`Dockerfile`](1.13.2/pro/php7.3/fpm))
+-   `1.13.2-pro-php7.3-apache` ([`Dockerfile`](1.13.2/pro/php7.3/apache))
+-   `1.13.2-pro-php7.2-fpm` ([`Dockerfile`](1.13.2/pro/php7.2/fpm))
+-   `1.13.2-pro-php7.2-apache` ([`Dockerfile`](1.13.2/pro/php7.2/apache))
+-   `1.13.2-pro-php7.1-fpm` ([`Dockerfile`](1.13.2/pro/php7.1/fpm))
+-   `1.13.2-pro-php7.1-apache` ([`Dockerfile`](1.13.2/pro/php7.1/apache))
+-   `1.13.2-pro-php7.0-fpm` ([`Dockerfile`](1.13.2/pro/php7.0/fpm))
+-   `1.13.2-pro-php7.0-apache` ([`Dockerfile`](1.13.2/pro/php7.0/apache))
 -   `1.13.1-open-php7.4-fpm` ([`Dockerfile`](1.13.1/open/php7.4/fpm))
 -   `1.13.1-open-php7.4-apache` ([`Dockerfile`](1.13.1/open/php7.4/apache))
 -   `1.13.1-open-php7.3-fpm` ([`Dockerfile`](1.13.1/open/php7.3/fpm))
@@ -79,16 +77,16 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 -   `1.13.1-open-php7.1-apache` ([`Dockerfile`](1.13.1/open/php7.1/apache))
 -   `1.13.1-open-php7.0-fpm` ([`Dockerfile`](1.13.1/open/php7.0/fpm))
 -   `1.13.1-open-php7.0-apache` ([`Dockerfile`](1.13.1/open/php7.0/apache))
--   `1.13-pro-php7.4-fpm` ([`Dockerfile`](1.13/pro/php7.4/fpm))
--   `1.13-pro-php7.4-apache` ([`Dockerfile`](1.13/pro/php7.4/apache))
--   `1.13-pro-php7.3-fpm` ([`Dockerfile`](1.13/pro/php7.3/fpm))
--   `1.13-pro-php7.3-apache` ([`Dockerfile`](1.13/pro/php7.3/apache))
--   `1.13-pro-php7.2-fpm` ([`Dockerfile`](1.13/pro/php7.2/fpm))
--   `1.13-pro-php7.2-apache` ([`Dockerfile`](1.13/pro/php7.2/apache))
--   `1.13-pro-php7.1-fpm` ([`Dockerfile`](1.13/pro/php7.1/fpm))
--   `1.13-pro-php7.1-apache` ([`Dockerfile`](1.13/pro/php7.1/apache))
--   `1.13-pro-php7.0-fpm` ([`Dockerfile`](1.13/pro/php7.0/fpm))
--   `1.13-pro-php7.0-apache` ([`Dockerfile`](1.13/pro/php7.0/apache))
+-   `1.13.1-pro-php7.4-fpm` ([`Dockerfile`](1.13.1/pro/php7.4/fpm))
+-   `1.13.1-pro-php7.4-apache` ([`Dockerfile`](1.13.1/pro/php7.4/apache))
+-   `1.13.1-pro-php7.3-fpm` ([`Dockerfile`](1.13.1/pro/php7.3/fpm))
+-   `1.13.1-pro-php7.3-apache` ([`Dockerfile`](1.13.1/pro/php7.3/apache))
+-   `1.13.1-pro-php7.2-fpm` ([`Dockerfile`](1.13.1/pro/php7.2/fpm))
+-   `1.13.1-pro-php7.2-apache` ([`Dockerfile`](1.13.1/pro/php7.2/apache))
+-   `1.13.1-pro-php7.1-fpm` ([`Dockerfile`](1.13.1/pro/php7.1/fpm))
+-   `1.13.1-pro-php7.1-apache` ([`Dockerfile`](1.13.1/pro/php7.1/apache))
+-   `1.13.1-pro-php7.0-fpm` ([`Dockerfile`](1.13.1/pro/php7.0/fpm))
+-   `1.13.1-pro-php7.0-apache` ([`Dockerfile`](1.13.1/pro/php7.0/apache))
 -   `1.13-open-php7.4-fpm` ([`Dockerfile`](1.13/open/php7.4/fpm))
 -   `1.13-open-php7.4-apache` ([`Dockerfile`](1.13/open/php7.4/apache))
 -   `1.13-open-php7.3-fpm` ([`Dockerfile`](1.13/open/php7.3/fpm))
@@ -99,6 +97,16 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 -   `1.13-open-php7.1-apache` ([`Dockerfile`](1.13/open/php7.1/apache))
 -   `1.13-open-php7.0-fpm` ([`Dockerfile`](1.13/open/php7.0/fpm))
 -   `1.13-open-php7.0-apache` ([`Dockerfile`](1.13/open/php7.0/apache))
+-   `1.13-pro-php7.4-fpm` ([`Dockerfile`](1.13/pro/php7.4/fpm))
+-   `1.13-pro-php7.4-apache` ([`Dockerfile`](1.13/pro/php7.4/apache))
+-   `1.13-pro-php7.3-fpm` ([`Dockerfile`](1.13/pro/php7.3/fpm))
+-   `1.13-pro-php7.3-apache` ([`Dockerfile`](1.13/pro/php7.3/apache))
+-   `1.13-pro-php7.2-fpm` ([`Dockerfile`](1.13/pro/php7.2/fpm))
+-   `1.13-pro-php7.2-apache` ([`Dockerfile`](1.13/pro/php7.2/apache))
+-   `1.13-pro-php7.1-fpm` ([`Dockerfile`](1.13/pro/php7.1/fpm))
+-   `1.13-pro-php7.1-apache` ([`Dockerfile`](1.13/pro/php7.1/apache))
+-   `1.13-pro-php7.0-fpm` ([`Dockerfile`](1.13/pro/php7.0/fpm))
+-   `1.13-pro-php7.0-apache` ([`Dockerfile`](1.13/pro/php7.0/apache))
 
 ## Quick reference
 
@@ -124,18 +132,18 @@ Each image is built on the official PHP Docker image. We've got heavily inspired
 
 ### Run i-doit with PHP-FPM (recommended)
 
-Run the latest version of i-doit pro with PHP 7.4 and FPM:
+Run the latest version of i-doit open with PHP 7.4 and FPM:
 
 ~~~ {.bash}
-docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.14.1-pro-php7.4-fpm
+docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.14.1-open-php7.4-fpm
 ~~~
 
-### Run i-doit with Apache HTTPD
+### Run i-doit with Apache HTTPD (legacy)
 
-Run the latest version of i-doit pro with PHP 7.4 and Apache HTTPD 2.4:
+Run the latest version of i-doit open with PHP 7.4 and Apache HTTPD 2.4:
 
 ~~~ {.bash}
-docker run --name i-doit-apache -p 80:80 bheisig/idoit:1.14.1-pro-php7.4-apache
+docker run --name i-doit-apache -p 80:80 bheisig/idoit:1.14.1-open-php7.4-apache
 ~~~
 
 ### Available volumes
@@ -146,9 +154,9 @@ Each i-doit container has one default volume containing the complete installatio
 
 i-doit requires either MariaDB or MySQL as the database backend. Additionally, memcached is highly recommended. There are some examples:
 
--   [Run with PHP-FPM](docker-compose-fpm.yml)
--   [Run with PHP-FPM and UNIX sockets](docker-compose-sockets.yml)
--   [Run with Apache HTTPD](docker-compose-apache.yml)
+-   [Run with PHP-FPM](docker-compose-fpm.yml) (preferred)
+-   [Run with PHP-FPM over UNIX sockets](docker-compose-sockets.yml) (even faster)
+-   [Run with Apache HTTPD](docker-compose-apache.yml) (legacy)
 
 ### Run i-doit CLI tool
 
@@ -218,9 +226,9 @@ It is _strongly_ recommended to access i-doit in a productive environment only v
 
 `<version>-<edition>-<php>-<service>`
 
--   `<version>`: Which version of i-doit do you like to run? Omit to run the latest version.
--   `<edition>`: Which edition of i-doit do you like to run? Select `open` for community edition (Free Software) and `pro` for professional edition (proprietary). Omit to go `pro`.
--   `<php>`: Which version of [PHP](https://php.net/) do you like to run? Omit to run the latest stable version.
+-   `<version>`: Which version of i-doit do you like to run?
+-   `<edition>`: Which edition of i-doit do you like to run? Select `open` for community edition (Free Software) and `pro` for professional edition (proprietary).
+-   `<php>`: Which version of [PHP](https://php.net/) do you like to run?
 -   `<service>`: Decide to run i-doit either with [Apache HTTPD](https://httpd.apache.org/), [Nginx](https://nginx.org/) or [PHP-FPM](https://php-fpm.org/)
 
 ## Copyright & license
