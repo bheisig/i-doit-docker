@@ -17,6 +17,9 @@ function execute {
         "clean")
             cleanUp
             ;;
+        "fix")
+            fix
+            ;;
         "help")
             printUsage
             ;;
@@ -194,6 +197,7 @@ function runTests {
     lintYAMLFiles
     lintDockerfiles
     lintShellScripts
+    testExecutableBits
 }
 
 function pullImagesForTesting {
@@ -302,6 +306,34 @@ function lintShellScript {
         koalaman/shellcheck:latest \
         "/scripts/$filePath" || \
         abort "No good"
+}
+
+function testExecutableBits {
+    while read -r filePath; do
+        testExecutableBit "$filePath"
+    done < <(
+        find . \
+            -type f -name "*.sh" -not \
+            -exec git check-ignore -q {} \; -printf '%P\n'
+    )
+}
+
+function testExecutableBit {
+    local filePath="$1"
+
+    log "Check executable bit on shell script $filePath"
+
+    test -x "$filePath" || \
+        abort "Script is not executable"
+}
+
+function fix {
+    fixFilePermissions
+}
+
+function fixFilePermissions {
+    find . -type f -iname "*.sh" -exec chmod +x {} \; || \
+        abort "Not good"
 }
 
 function pushImages {
@@ -531,7 +563,7 @@ function cleanUp {
 }
 
 function printUsage {
-    log "build|clean|help|login|logout|print|pull|push|test"
+    log "build|clean|fix|help|login|logout|print|pull|push|test"
 }
 
 function setUp {
