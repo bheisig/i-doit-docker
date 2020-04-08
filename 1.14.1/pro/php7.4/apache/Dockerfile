@@ -55,8 +55,8 @@ COPY CHECKSUMS /var/www/html
 WORKDIR /var/www/html
 
 ARG IDOIT_VERSION=1.14.1
-ARG IDOIT_DOWNLOAD_URL=https://login.i-doit.com/downloads/idoit-${IDOIT_VERSION}.zip
 ARG IDOIT_ZIP_FILE=idoit-${IDOIT_VERSION}.zip
+ARG IDOIT_DOWNLOAD_URL=https://login.i-doit.com/downloads/${IDOIT_ZIP_FILE}
 
 RUN curl -fsSLO "${IDOIT_DOWNLOAD_URL}"; \
     sha256sum --strict --ignore-missing --check CHECKSUMS; \
