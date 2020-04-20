@@ -38,6 +38,9 @@ function execute {
         "push")
             pushImages
             ;;
+        "scan")
+            scanImages
+            ;;
         "test")
             runTests
             ;;
@@ -197,6 +200,113 @@ function buildImage {
         abort "No build"
 }
 
+function scanImages {
+    log "Scan images for vulnerabilities"
+    scanImage 1.13 pro php7.0 apache
+    scanImage 1.13 pro php7.0 fpm
+    scanImage 1.13 pro php7.1 apache
+    scanImage 1.13 pro php7.1 fpm
+    scanImage 1.13 pro php7.2 apache
+    scanImage 1.13 pro php7.2 fpm
+    scanImage 1.13 pro php7.3 apache
+    scanImage 1.13 pro php7.3 fpm
+    scanImage 1.13 pro php7.4 apache
+    scanImage 1.13 pro php7.4 fpm
+    scanImage 1.13 open php7.0 apache
+    scanImage 1.13 open php7.0 fpm
+    scanImage 1.13 open php7.1 apache
+    scanImage 1.13 open php7.1 fpm
+    scanImage 1.13 open php7.2 apache
+    scanImage 1.13 open php7.2 fpm
+    scanImage 1.13 open php7.3 apache
+    scanImage 1.13 open php7.3 fpm
+    scanImage 1.13 open php7.4 apache
+    scanImage 1.13 open php7.4 fpm
+    scanImage 1.13.1 pro php7.0 apache
+    scanImage 1.13.1 pro php7.0 fpm
+    scanImage 1.13.1 pro php7.1 apache
+    scanImage 1.13.1 pro php7.1 fpm
+    scanImage 1.13.1 pro php7.2 apache
+    scanImage 1.13.1 pro php7.2 fpm
+    scanImage 1.13.1 pro php7.3 apache
+    scanImage 1.13.1 pro php7.3 fpm
+    scanImage 1.13.1 pro php7.4 apache
+    scanImage 1.13.1 pro php7.4 fpm
+    scanImage 1.13.1 open php7.0 apache
+    scanImage 1.13.1 open php7.0 fpm
+    scanImage 1.13.1 open php7.1 apache
+    scanImage 1.13.1 open php7.1 fpm
+    scanImage 1.13.1 open php7.2 apache
+    scanImage 1.13.1 open php7.2 fpm
+    scanImage 1.13.1 open php7.3 apache
+    scanImage 1.13.1 open php7.3 fpm
+    scanImage 1.13.1 open php7.4 apache
+    scanImage 1.13.1 open php7.4 fpm
+    scanImage 1.13.2 pro php7.0 apache
+    scanImage 1.13.2 pro php7.0 fpm
+    scanImage 1.13.2 pro php7.1 apache
+    scanImage 1.13.2 pro php7.1 fpm
+    scanImage 1.13.2 pro php7.2 apache
+    scanImage 1.13.2 pro php7.2 fpm
+    scanImage 1.13.2 pro php7.3 apache
+    scanImage 1.13.2 pro php7.3 fpm
+    scanImage 1.13.2 pro php7.4 apache
+    scanImage 1.13.2 pro php7.4 fpm
+    scanImage 1.13.2 open php7.0 apache
+    scanImage 1.13.2 open php7.0 fpm
+    scanImage 1.13.2 open php7.1 apache
+    scanImage 1.13.2 open php7.1 fpm
+    scanImage 1.13.2 open php7.2 apache
+    scanImage 1.13.2 open php7.2 fpm
+    scanImage 1.13.2 open php7.3 apache
+    scanImage 1.13.2 open php7.3 fpm
+    scanImage 1.13.2 open php7.4 apache
+    scanImage 1.13.2 open php7.4 fpm
+    scanImage 1.14 pro php7.1 apache
+    scanImage 1.14 pro php7.1 fpm
+    scanImage 1.14 pro php7.2 apache
+    scanImage 1.14 pro php7.2 fpm
+    scanImage 1.14 pro php7.3 apache
+    scanImage 1.14 pro php7.3 fpm
+    scanImage 1.14 pro php7.4 apache
+    scanImage 1.14 pro php7.4 fpm
+    scanImage 1.14 open php7.1 apache
+    scanImage 1.14 open php7.1 fpm
+    scanImage 1.14 open php7.2 apache
+    scanImage 1.14 open php7.2 fpm
+    scanImage 1.14 open php7.3 apache
+    scanImage 1.14 open php7.3 fpm
+    scanImage 1.14 open php7.4 apache
+    scanImage 1.14 open php7.4 fpm
+    scanImage 1.14.1 pro php7.1 apache
+    scanImage 1.14.1 pro php7.1 fpm
+    scanImage 1.14.1 pro php7.2 apache
+    scanImage 1.14.1 pro php7.2 fpm
+    scanImage 1.14.1 pro php7.3 apache
+    scanImage 1.14.1 pro php7.3 fpm
+    scanImage 1.14.1 pro php7.4 apache
+    scanImage 1.14.1 pro php7.4 fpm
+    scanImage 1.14.1 open php7.1 apache
+    scanImage 1.14.1 open php7.1 fpm
+    scanImage 1.14.1 open php7.2 apache
+    scanImage 1.14.1 open php7.2 fpm
+    scanImage 1.14.1 open php7.3 apache
+    scanImage 1.14.1 open php7.3 fpm
+    scanImage 1.14.1 open php7.4 apache
+    scanImage 1.14.1 open php7.4 fpm
+}
+
+function scanImage {
+    local version="$1"
+    local edition="$2"
+    local php="$3"
+    local service="$4"
+    local tag="${DOCKER_IMAGE}:${version}-${edition}-${php}-${service}"
+
+    log "Scan image $tag"
+    docker run --rm -v /tmp/trivy:/root/.cache/ aquasec/trivy "$tag"
+}
+
 function runTests {
     pullImagesForTesting
     installNodePackages
@@ -214,6 +324,7 @@ function pullImagesForTesting {
     pullImage koalaman/shellcheck:latest
     pullImage node:lts
     pullImage cytopia/yamllint:latest
+    pullImage aquasec/trivy:latest
 }
 
 function installNodePackages {
