@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
+_tbd_
+
+## [0.2.0][] – 2020-06-02
+
 ### Added
 
 -   Add i-doit pro/open, versions 1.13.1, 1.13.2, 1.14, 1.14.1 and 1.14.2
@@ -28,4 +32,5 @@ Initial release
 -   Add services Apache Webserver and PHP-FPM
 -   Add examples for docker-compose incl. environment variables, MariaDB and memcached
 
-[Unreleased]: https://github.com/bheisig/i-doit-docker/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/bheisig/i-doit-docker/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/bheisig/i-doit-cli/compare/v0.1.0...v0.2.0

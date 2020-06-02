@@ -2,7 +2,7 @@
     "name": "i-doit-docker",
     "description": "Dockerized i-doit CMDB",
     "keywords": [],
-    "version": "0.0.0-dev",
+    "version": "0.2.0",
     "homepage": "https://i-doit.com/",
     "repository": {
         "type": "git",
