@@ -7,18 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
-_tbd_
+## Removed
+
+-   Do not build images for 1.13.x branch anymore
 
 ## [0.2.0][] – 2020-06-02
 
 ### Added
 
 -   Add i-doit pro/open, versions 1.13.1, 1.13.2, 1.14, 1.14.1 and 1.14.2
+-   Scan images for vulnerabilities with `./docker.sh scan`
 -   Add `./docker.sh fix` to fix file permissions
 
 ### Fixed
 
 -   Ensure to remove all remaining docker images while cleaning up
+
+### Removed
+
+-   Do not build images for 1.12.x branch anymore
 
 ## 0.1.0 – 2019-07-24
 
