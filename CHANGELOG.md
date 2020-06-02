@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
+## Added
+
+-   Add i-doit open, version 1.14.2
+
 ## Removed
 
 -   Do not build images for 1.13.x branch anymore
