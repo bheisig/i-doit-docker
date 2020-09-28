@@ -1,5 +1,20 @@
 ---
+extends: default
+
+locale: en_US.UTF-8
 
 rules:
-  document-start: disable
-  line-length: disable
+  comments:
+    require-starting-space: true
+    min-spaces-from-content: 1
+  line-length:
+    level: warning
+    max: 120
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true
+  truthy:
+    allowed-values:
+      - "true"
+      - "false"
+      - "yes"
+      - "no"

@@ -1,0 +1,7 @@
+---
+allow:
+  # We use the technical term "host" a lot:
+  - host-hostess
+  - hostesses-hosts
+  # It's about the language:
+  - german
