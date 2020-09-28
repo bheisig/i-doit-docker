@@ -15,6 +15,22 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 
 ## Supported tags and respective `Dockerfile` links
 
+-   `1.15.1-pro-php7.4-fpm` ([`Dockerfile`](1.15.1/pro/php7.4/fpm))
+-   `1.15.1-pro-php7.4-apache` ([`Dockerfile`](1.15.1/pro/php7.4/apache))
+-   `1.15.1-pro-php7.3-fpm` ([`Dockerfile`](1.15.1/pro/php7.3/fpm))
+-   `1.15.1-pro-php7.3-apache` ([`Dockerfile`](1.15.1/pro/php7.3/apache))
+-   `1.15.1-pro-php7.2-fpm` ([`Dockerfile`](1.15.1/pro/php7.2/fpm))
+-   `1.15.1-pro-php7.2-apache` ([`Dockerfile`](1.15.1/pro/php7.2/apache))
+-   `1.15.1-pro-php7.1-fpm` ([`Dockerfile`](1.15.1/pro/php7.1/fpm))
+-   `1.15.1-pro-php7.1-apache` ([`Dockerfile`](1.15.1/pro/php7.1/apache))
+-   `1.15-open-php7.4-fpm` ([`Dockerfile`](1.15/open/php7.4/fpm))
+-   `1.15-open-php7.4-apache` ([`Dockerfile`](1.15/open/php7.4/apache))
+-   `1.15-open-php7.3-fpm` ([`Dockerfile`](1.15/open/php7.3/fpm))
+-   `1.15-open-php7.3-apache` ([`Dockerfile`](1.15/open/php7.3/apache))
+-   `1.15-open-php7.2-fpm` ([`Dockerfile`](1.15/open/php7.2/fpm))
+-   `1.15-open-php7.2-apache` ([`Dockerfile`](1.15/open/php7.2/apache))
+-   `1.15-open-php7.1-fpm` ([`Dockerfile`](1.15/open/php7.1/fpm))
+-   `1.15-open-php7.1-apache` ([`Dockerfile`](1.15/open/php7.1/apache))
 -   `1.15-pro-php7.4-fpm` ([`Dockerfile`](1.15/pro/php7.4/fpm))
 -   `1.15-pro-php7.4-apache` ([`Dockerfile`](1.15/pro/php7.4/apache))
 -   `1.15-pro-php7.3-fpm` ([`Dockerfile`](1.15/pro/php7.3/fpm))
@@ -72,14 +88,14 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 -   `1.14-pro-php7.1-fpm` ([`Dockerfile`](1.14/pro/php7.1/fpm))
 -   `1.14-pro-php7.1-apache` ([`Dockerfile`](1.14/pro/php7.1/apache))
 
-**Note:** Older branches are not supported anymore but still remain in the repository.
+**Note:** Older branches are not supported anymore but can still be found in the repository.
 
 ## Quick reference
 
 -   **Where to get help**:  
-    [https://github.com/bheisig/i-doit-docker/issues](https://github.com/bheisig/i-doit-docker/issues)
+    [`https://github.com/bheisig/i-doit-docker/issues`](https://github.com/bheisig/i-doit-docker/issues)
 -   **Where to file issues**:  
-    [https://github.com/bheisig/i-doit-docker/issues](https://github.com/bheisig/i-doit-docker/issues)
+    [`https://github.com/bheisig/i-doit-docker/issues`](https://github.com/bheisig/i-doit-docker/issues)
 -   **Maintained by**:  
     [Benjamin Heisig](https://benjamin.heisig.name/)
 -   **Supported architectures**: x86_64
@@ -101,7 +117,7 @@ Each image is built on the official PHP Docker image. We've got heavily inspired
 Run the latest version of i-doit open with PHP 7.4 and FPM:
 
 ~~~ {.bash}
-docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.14.2-open-php7.4-fpm
+docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.15-open-php7.4-fpm
 ~~~
 
 ### Run i-doit with Apache HTTPD (legacy)
@@ -109,7 +125,7 @@ docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.14.2-open-php7.4-fpm
 Run the latest version of i-doit open with PHP 7.4 and Apache HTTPD 2.4:
 
 ~~~ {.bash}
-docker run --name i-doit-apache -p 80:80 bheisig/idoit:1.14.2-open-php7.4-apache
+docker run --name i-doit-apache -p 80:80 bheisig/idoit:1.15-open-php7.4-apache
 ~~~
 
 ### Available volumes
@@ -118,7 +134,7 @@ Each i-doit container has one default volume containing the complete installatio
 
 ### Run i-doit with Docker Compose
 
-i-doit requires either MariaDB or MySQL as the database backend. Additionally, memcached is highly recommended. There are some examples:
+i-doit requires either MariaDB or MySQL as the database backend. Additionally, Memcached is highly recommended. There are some examples:
 
 -   [Run with PHP-FPM](docker-compose-fpm.yml) (preferred)
 -   [Run with PHP-FPM over UNIX sockets](docker-compose-sockets.yml) (even faster)
@@ -126,7 +142,7 @@ i-doit requires either MariaDB or MySQL as the database backend. Additionally, m
 
 ### Run i-doit CLI tool
 
-i-doit has its own CLI tool named `console.php` for long-lasting, recurring tasks or automating things in background. You can execute any CLI command in the running Docker container, for example:
+i-doit has its own CLI tool named `console.php` for long-lasting, recurring tasks or automating things in background. You can call any CLI command in the running Docker container, for example:
 
 ~~~ {.bash}
 docker exec -it --user www-data i-doit-fpm php console.php --help
@@ -201,4 +217,4 @@ It is _strongly_ recommended to access i-doit in a productive environment only v
 
 Copyright (C) 2019-2020 [synetics GmbH](https://i-doit.com/)
 
-Licensed under the [GNU Affero GPL version 3 or later (AGPLv3+)](https://gnu.org/licenses/agpl.html). This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
+Licensed under the [GNU Affero GPL version 3 or later (`AGPLv3+`)](https://gnu.org/licenses/agpl.html). This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
