@@ -9,9 +9,9 @@ Dockerized [i-doit CMDB](https://i-doit.com/)
 
 ## Not production-ready!
 
-**The provided Docker images aren't production-ready. Please do not rely on them. They come "as is" with absolutely no warranty. They are not an official product by synetics GmbH. Therefore, we can't provide you any support.**
+**The provided Docker images aren't production-ready. Please do not rely on them. They come "as is" with no warranty of any kind. They are not an official product by synetics GmbH. Because of this, we can't provide you any support.**
 
-At the moment, we use these images for quality tests of i-doit and its add-ons. Maybe in the near-future we hope to provide you official i-doit Docker images which are well-tested and production-ready. In the meantime don't hesitate to test these images yourself. [We love to get your feedback!](https://github.com/bheisig/i-doit-docker/issues)
+At the moment, we use these images for quality tests of i-doit and its add-ons. In the near-future we hope to provide you official i-doit Docker images which are well-tested and production-ready. In the meantime don't hesitate to test these images yourself. [We love to get your feedback!](https://github.com/bheisig/i-doit-docker/issues)
 
 ## Supported tags and respective `Dockerfile` links
 
@@ -92,16 +92,16 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 
 ## Quick reference
 
--   **Where to get help**:  
+-   **Where to get help**:
     [`https://github.com/bheisig/i-doit-docker/issues`](https://github.com/bheisig/i-doit-docker/issues)
--   **Where to file issues**:  
+-   **Where to file issues**:
     [`https://github.com/bheisig/i-doit-docker/issues`](https://github.com/bheisig/i-doit-docker/issues)
--   **Maintained by**:  
+-   **Maintained by**:
     [Benjamin Heisig](https://benjamin.heisig.name/)
 -   **Supported architectures**: x86_64
--   **Source of this description**:  
+-   **Source of this description**:
     [`README.md`](https://github.com/bheisig/i-doit-docker/blob/master/README.md)
--   **Supported Docker versions**:  
+-   **Supported Docker versions**:
     [the latest release](https://github.com/docker/docker-ce/releases/latest) (down to 1.6 on a best-effort basis)
 
 ## What is i-doit?
@@ -134,7 +134,7 @@ Each i-doit container has one default volume containing the complete installatio
 
 ### Run i-doit with Docker Compose
 
-i-doit requires either MariaDB or MySQL as the database backend. Additionally, Memcached is highly recommended. There are some examples:
+i-doit requires either MariaDB or MySQL as the database backend. For better performance Memcached is highly recommended. There are some examples:
 
 -   [Run with PHP-FPM](docker-compose-fpm.yml) (preferred)
 -   [Run with PHP-FPM over UNIX sockets](docker-compose-sockets.yml) (even faster)
@@ -142,7 +142,7 @@ i-doit requires either MariaDB or MySQL as the database backend. Additionally, M
 
 ### Run i-doit CLI tool
 
-i-doit has its own CLI tool named `console.php` for long-lasting, recurring tasks or automating things in background. You can call any CLI command in the running Docker container, for example:
+i-doit has its own CLI tool named `console.php` for long-lasting, recurring tasks in background. You can call any CLI command in the running Docker container, for example:
 
 ~~~ {.bash}
 docker exec -it --user www-data i-doit-fpm php console.php --help
@@ -150,7 +150,7 @@ docker exec -it --user www-data i-doit-fpm php console.php --help
 
 ### Update i-doit
 
-_This is currently not working as smoothly as expected._
+_to be defined_
 
 ### Backup and restore
 
@@ -160,7 +160,7 @@ For a complete backup and restore process you need to consider at least 3 source
 2.  System database (default: `idoit_system`)
 3.  Each tenant database (default 1st one: `idoit_data`)
 
-As you can see in the examples for `docker-compose` (see section "Run i-doit with Docker Compose") the simplest thing is to backup the named volumes. But for a running instance of MariaDB this is a bad solution because everything stored temporarily in memory won't be backed up. Therefore, run `mysqldump` (for backup) and `mysql` (for restore) to fetch every bit stored in the databases.
+As you can see in the examples for `docker-compose` (see section "Run i-doit with Docker Compose") the simplest thing is to backup the named volumes. But for a running instance of MariaDB this is a bad solution because everything stored temporarily in memory won't be backed up. Run `mysqldump` (for backup) and `mysql` (for restore) to fetch every bit stored in the databases.
 
 This is a basic example to backup everything in a running environment:
 
@@ -191,7 +191,7 @@ docker exec --interactive --user www-data i-doit-fpm php \
 
 ### Move your CMDB data to a container
 
-There are no general instructions for this job because every environment is slightly different. The next example assumes that i-doit is currently installed on the same host as the running i-doit container:
+The next example assumes that i-doit is installed on the same host as the running i-doit container:
 
 ~~~ {.bash}
 cd /var/www/html/
@@ -202,7 +202,7 @@ mysqldump -uidoit -pidoit --all-databases | \
 
 ### TLS/HTTPS
 
-It is _strongly_ recommended to access i-doit in a productive environment only via TLS/HTTPS. The provided images do not terminate TLS/HTTPS connections. Therefore, you need an additional load balancer or similar.
+We _strongly_ recommend to access i-doit in a productive environment via TLS/HTTPS. Consider to use a load balancer or reverse proxy because the provided images are unable to handle TLS/HTTPS connections themselves.
 
 ## Image variants
 
@@ -217,4 +217,4 @@ It is _strongly_ recommended to access i-doit in a productive environment only v
 
 Copyright (C) 2019-2020 [synetics GmbH](https://i-doit.com/)
 
-Licensed under the [GNU Affero GPL version 3 or later (`AGPLv3+`)](https://gnu.org/licenses/agpl.html). This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
+Licensed under the [GNU Affero GPL version 3 or later (`AGPLv3+`)](https://gnu.org/licenses/agpl.html)
