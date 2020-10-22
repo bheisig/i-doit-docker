@@ -19,6 +19,9 @@ IFS=$'\n\t'
 : "${MEMCACHED_HOST:=""}"
 : "${MEMCACHED_PORT:=""}"
 
+: "${APACHE_CONFIG_FILE:="/etc/apache2/sites-available/i-doit.conf"}"
+: "${APACHE_HTACCESS_SUBSTITUTION:="## Insert content from .htaccess file here"}"
+
 function report {
     log "Installation directory: $INSTALL_DIR"
     log "Default tenant: $IDOIT_DEFAULT_TENANT"
@@ -62,6 +65,7 @@ function execute {
     fixTenantTable
     fixConfigFile
     enableMemcached
+    updateApacheConfig
 }
 
 function addDB {
@@ -139,6 +143,20 @@ function enableMemcached {
             -e"INSERT INTO ${IDOIT_SYSTEM_DATABASE}.isys_settings (isys_settings__key, isys_settings__value) VALUES ('memcache.port', '${MEMCACHED_PORT}');" || \
             abort "SQL statement failed"
     fi
+}
+
+function updateApacheConfig {
+    local htaccessFile="${INSTALL_DIR}/.htaccess"
+
+    log "Update Apache's VHost config from i-doit's htaccess file"
+
+    sed -i \
+        -e "/${APACHE_HTACCESS_SUBSTITUTION}/ {" \
+        -e "r ${htaccessFile}" \
+        -e "d" \
+        -e "}" \
+        "$APACHE_CONFIG_FILE" || \
+        abort "Unable to change config file"
 }
 
 function finish {
