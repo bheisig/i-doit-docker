@@ -15,6 +15,14 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 
 ## Supported tags and respective `Dockerfile` links
 
+-   `1.15.1-open-php7.4-fpm` ([`Dockerfile`](1.15.1/open/php7.4/fpm))
+-   `1.15.1-open-php7.4-apache` ([`Dockerfile`](1.15.1/open/php7.4/apache))
+-   `1.15.1-open-php7.3-fpm` ([`Dockerfile`](1.15.1/open/php7.3/fpm))
+-   `1.15.1-open-php7.3-apache` ([`Dockerfile`](1.15.1/open/php7.3/apache))
+-   `1.15.1-open-php7.2-fpm` ([`Dockerfile`](1.15.1/open/php7.2/fpm))
+-   `1.15.1-open-php7.2-apache` ([`Dockerfile`](1.15.1/open/php7.2/apache))
+-   `1.15.1-open-php7.1-fpm` ([`Dockerfile`](1.15.1/open/php7.1/fpm))
+-   `1.15.1-open-php7.1-apache` ([`Dockerfile`](1.15.1/open/php7.1/apache))
 -   `1.15.1-pro-php7.4-fpm` ([`Dockerfile`](1.15.1/pro/php7.4/fpm))
 -   `1.15.1-pro-php7.4-apache` ([`Dockerfile`](1.15.1/pro/php7.4/apache))
 -   `1.15.1-pro-php7.3-fpm` ([`Dockerfile`](1.15.1/pro/php7.3/fpm))
@@ -117,7 +125,7 @@ Each image is built on the official PHP Docker image. We've got heavily inspired
 Run the latest version of i-doit open with PHP 7.4 and FPM:
 
 ~~~ {.bash}
-docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.15-open-php7.4-fpm
+docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.15.1-open-php7.4-fpm
 ~~~
 
 ### Run i-doit with Apache HTTPD (legacy)
@@ -125,7 +133,7 @@ docker run --name i-doit-fpm -p 9000:9000 bheisig/idoit:1.15-open-php7.4-fpm
 Run the latest version of i-doit open with PHP 7.4 and Apache HTTPD 2.4:
 
 ~~~ {.bash}
-docker run --name i-doit-apache -p 80:80 bheisig/idoit:1.15-open-php7.4-apache
+docker run --name i-doit-apache -p 80:80 bheisig/idoit:1.15.1-open-php7.4-apache
 ~~~
 
 ### Available volumes
