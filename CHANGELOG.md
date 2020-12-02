@@ -9,13 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+-   Add i-doit open, version `1.15.2`
 -   Add i-doit pro, version `1.15.2`
 
 ## [0.3.0][] – 2020-10-23
 
 ### Added
 
--   Add i-doit open/pro, versions `1.15` and `1.15.1`
+-   Add i-doit open, version `1.15.1`
+-   Add i-doit pro, version `1.15.1`
+-   Add i-doit open, version `1.15`
+-   Add i-doit pro, version `1.15`
 -   Add i-doit open, version `1.14.2`
 
 ### Fixed
