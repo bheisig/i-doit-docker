@@ -251,7 +251,7 @@ We _strongly_ recommend to access i-doit in a productive environment via TLS/HTT
 -   `<version>`: Which version of i-doit do you like to run?
 -   `<edition>`: Which edition of i-doit do you like to run? Select `open` for community edition (Free Software) and `pro` for professional edition (proprietary).
 -   `<php>`: Which version of [PHP](https://php.net/) do you like to run?
--   `<service>`: Decide to run i-doit either with [Apache HTTPD](https://httpd.apache.org/), [Nginx](https://nginx.org/) or [PHP-FPM](https://php-fpm.org/)
+-   `<service>`: Decide to run i-doit either with [Apache HTTPD](https://httpd.apache.org/) or [PHP-FPM](https://php-fpm.org/)
 
 ## Copyright & license
 
