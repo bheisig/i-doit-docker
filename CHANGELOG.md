@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Add i-doit open, version `1.15.2`
 -   Add i-doit pro, version `1.15.2`
 
+### Removed
+
+-   Drop support for i-doit open/pro `1.14` branch
+
 ## [0.3.0][] – 2020-10-23
 
 ### Added
