@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 -   Drop support for i-doit open/pro `1.14` branch
+-   Drop support for PHP `7.1`
 
 ## [0.3.0][] – 2020-10-23
 
