@@ -41,9 +41,6 @@ function execute {
         "scan")
             scanImages
             ;;
-        "test")
-            runTests
-            ;;
         *)
             printUsage
             ;;
@@ -190,144 +187,6 @@ function scanImage {
     docker run --rm -v /tmp/trivy:/root/.cache/ aquasec/trivy "$tag"
 }
 
-function runTests {
-    log "Run tests…"
-
-    pullImagesForTesting
-    installNodePackages
-    auditNodePackages
-    lintMarkdownFiles
-    lintYAMLFiles
-    lintDockerfiles
-    lintShellScripts
-    testExecutableBits
-}
-
-function pullImagesForTesting {
-    log "Pull Docker images…"
-
-    pullImage hadolint/hadolint:latest
-    pullImage koalaman/shellcheck:latest
-    pullImage node:lts
-    pullImage cytopia/yamllint:latest
-    pullImage aquasec/trivy:latest
-}
-
-function installNodePackages {
-    log "Install Node packages…"
-
-    docker run --rm --name idoitdocker-npm \
-        -v "$PWD":/usr/src/app -w /usr/src/app node:lts \
-        npm install || abort "No good"
-}
-
-function auditNodePackages {
-    docker run --rm --name idoitdocker-npm \
-        -v "$PWD":/usr/src/app -w /usr/src/app node:lts \
-        npm audit || abort "No good"
-}
-
-function lintMarkdownFiles {
-    while read -r filePath; do
-        lintMarkdownFile "$filePath"
-    done < <(
-        find "$(git rev-parse --show-toplevel)" \
-            -type f -name "*.md" -not \
-            -exec git check-ignore -q {} \; -printf '%P\n'
-    )
-}
-
-function lintMarkdownFile {
-    local filePath="$1"
-
-    log "Lint markdown file $filePath"
-
-    docker run --rm --name idoitdocker-npm \
-        -v "$PWD":/usr/src/app -w /usr/src/app node:lts \
-        ./node_modules/.bin/remark \
-        --frail --quiet < "$filePath" > /dev/null || \
-        abort "No good"
-}
-
-function lintYAMLFiles {
-    while read -r filePath; do
-        lintYAMLFile "$filePath"
-    done < <(
-        find "$(git rev-parse --show-toplevel)" \
-            -type f -name "*.y*ml" -not \
-            -exec git check-ignore -q {} \; -printf '%P\n'
-    )
-}
-
-function lintYAMLFile {
-    local filePath="$1"
-
-    log "Lint YAML file $filePath"
-
-    docker run --rm --name idoitdocker-yamllint \
-        -v "$PWD":/data cytopia/yamllint:latest \
-        "$filePath" || \
-        abort "No good"
-}
-
-function lintDockerfiles {
-    while read -r filePath; do
-        lintDockerfile "$filePath"
-    done < <(
-        find "$(git rev-parse --show-toplevel)" \
-            -type f -name "Dockerfile" -not \
-            -exec git check-ignore -q {} \; -printf '%P\n'
-    )
-}
-
-function lintDockerfile {
-    local dockerfile="$1"
-
-    log "Lint $dockerfile"
-
-    docker run --rm -i -v "$PWD:/opt/hadolint/" hadolint/hadolint:latest \
-        hadolint --config /opt/hadolint/.hadolint.yaml - < \
-        "$dockerfile" || \
-        abort "No good"
-}
-
-function lintShellScripts {
-    while read -r filePath; do
-        lintShellScript "$filePath"
-    done < <(
-        git ls-files | grep -e '.sh$'
-    )
-}
-
-function lintShellScript {
-    local filePath="$1"
-
-    log "Lint shell script $filePath"
-
-    docker run \
-        -v "$(pwd):/scripts" \
-        koalaman/shellcheck:latest \
-        "/scripts/$filePath" || \
-        abort "No good"
-}
-
-function testExecutableBits {
-    while read -r filePath; do
-        testExecutableBit "$filePath"
-    done < <(
-        git ls-files | grep -e '.sh$'
-    )
-}
-
-function testExecutableBit {
-    local filePath="$1"
-
-    log "Check executable bit on shell script $filePath"
-
-    test -x "$filePath" || \
-        abort "Script is not executable"
-}
-
 function fix {
     fixFilePermissions
 }
@@ -467,7 +326,7 @@ function cleanUp {
 }
 
 function printUsage {
-    log "build|clean|fix|help|login|logout|print|pull|push|scan|test"
+    log "build|clean|fix|help|login|logout|print|pull|push|scan"
 }
 
 function setUp {

@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Drop support for i-doit open/pro `1.14` and `1.15` branches
 -   Drop support for PHP `7.1`, `7.2`, and `7.3` (end of life)
+-   Remove command `./docker.sh test` in favor of `npm test`
 
 ## [0.3.0][] – 2020-10-23
 
