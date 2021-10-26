@@ -110,12 +110,8 @@ function buildImages {
 function pullImages {
     log "Pull Docker images from registry…"
 
-    pullImage php:7.4-fpm-buster
-    pullImage php:7.4-apache-buster
-    pullImage php:7.3-fpm-buster
-    pullImage php:7.3-apache-buster
-    pullImage php:7.2-fpm-buster
-    pullImage php:7.2-apache-buster
+    pullImage php:7.4-fpm-bullseye
+    pullImage php:7.4-apache-bullseye
 }
 
 function pullImage {
