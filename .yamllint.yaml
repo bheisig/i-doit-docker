@@ -7,11 +7,20 @@ rules:
   comments:
     require-starting-space: true
     min-spaces-from-content: 1
+  document-start:
+    level: error
   line-length:
     level: warning
     max: 120
     allow-non-breakable-words: true
     allow-non-breakable-inline-mappings: true
+  octal-values: enable
+  quoted-strings:
+    level: warning
+    quote-type: any
+    required: false
+    extra-required:
+      - '.*{{.+}}.*'
   truthy:
     allowed-values:
       - "true"

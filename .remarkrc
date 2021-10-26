@@ -1,0 +1,40 @@
+{
+    "settings": {},
+    "plugins": [
+        "lint",
+        "lint-no-empty-sections",
+        [
+            "remark-frontmatter",
+            {
+                "type": "yaml",
+                "marker": "-"
+            }
+        ],
+        "remark-lint-match-punctuation",
+        [
+            "remark-lint-no-dead-urls",
+            {
+                "skipLocalhost": true
+            }
+        ],
+        [
+            "remark-lint-no-long-code",
+            {
+                "length": 100
+            }
+        ],
+        "remark-lint-no-repeat-punctuation",
+        "remark-lint-no-trailing-spaces",
+        [
+            "remark-lint-write-good",
+            [
+                "warn",
+                {
+                    "passive": false
+                }
+            ]
+        ],
+        "remark-preset-lint-consistent",
+        "remark-preset-lint-recommended"
+    ]
+}

@@ -1,4 +1,4 @@
-# EditorConfig is awesome: https://editorconfig.org/
+# EditorConfig is awesome: https://EditorConfig.org
 
 root = true
 
@@ -9,6 +9,5 @@ charset = utf-8
 indent_style = space
 indent_size = 4
 
-[*.yml]
-indent_style = space
+[*.{yml,yaml}]
 indent_size = 2

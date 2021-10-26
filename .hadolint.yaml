@@ -1,3 +1,6 @@
 ---
 ignored:
+  # Ignore version pinning in Debian's apt install:
   - DL3008
+  # Allow multiple consecutive RUN statements:
+  - DL3059

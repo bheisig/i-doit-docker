@@ -1,0 +1,6 @@
+{
+    "Exclude": [
+        "node_modules",
+        "LICENSE"
+    ]
+}

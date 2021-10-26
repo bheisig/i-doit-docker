@@ -6,7 +6,13 @@
         "idoit",
         "CMDB",
         "IT documentation",
-        "asset management"
+        "it assets",
+        "it asset management",
+        "ITAM",
+        "documentation",
+        "docs",
+        "documentation of things",
+        "configuration items"
     ],
     "version": "0.3.0",
     "homepage": "https://i-doit.com/",
@@ -20,13 +26,17 @@
     "license": "AGPL-3.0-or-later",
     "author": "Benjamin Heisig <bheisig@i-doit.com> (https://i-doit.com/)",
     "dependencies": {
-        "alex": "^9.1.0",
-        "husky": "^4.3.8",
+        "alex": "^10",
+        "husky": "^7",
+        "jscpd": "^3.3.25",
+        "jsonlint": "^1.6.3",
         "markdown-spellcheck": "git+https://github.com/lukeapage/node-markdown-spellcheck.git",
-        "npm-run-all": "^4.1.5",
-        "remark-cli": "^9.0",
-        "remark-frontmatter": "^3.0",
-        "remark-lint": "^8.0",
+        "npm-run-all": "^4.1",
+        "npm-scripts-info": "^0.3.9",
+        "remark-cli": "^10.0",
+        "remark-frontmatter": "^4",
+        "remark-gfm": "^3",
+        "remark-lint": "^9.0",
         "remark-lint-match-punctuation": "^0.2.0",
         "remark-lint-no-dead-urls": "^1.1.0",
         "remark-lint-no-empty-sections": "^4.0.0",
@@ -34,69 +44,70 @@
         "remark-lint-no-repeat-punctuation": "^0.1.3",
         "remark-lint-no-trailing-spaces": "^2.0.1",
         "remark-lint-write-good": "^1.2.0",
-        "remark-normalize-headings": "^2",
-        "remark-preset-lint-consistent": "^4.0",
-        "remark-preset-lint-recommended": "^5.0"
+        "remark-normalize-headings": "^3",
+        "remark-preset-lint-consistent": "^5.0",
+        "remark-preset-lint-recommended": "^6.0"
     },
     "scripts": {
-        "system": "./node_modules/.bin/run-s system:*",
+        "?info": "Display information about scripts",
+        "info": "npm-scripts-info",
+        "?pre-commit": "Run pre-commit hooks",
+        "pre-commit": "run-s pre-commit:*",
+        "?pre-commit:test": "Run tests locally",
+        "pre-commit:test": "npm test",
+        "?pre-push": "Run pre-push hooks",
+        "pre-push": "run-s pre-push:*",
+        "?pre-push:system": "Run advanced tests",
+        "pre-push:system": "npm run system",
+        "?pre-push:test": "Run tests locally",
+        "pre-push:test": "npm test",
+        "?prepare": "Prepare dependencies",
+        "prepare": "run-s prepare:*",
+        "?prepare:husky": "Install husky",
+        "prepare:husky": "husky install",
+        "?sort-word-list": "Sort words in custom dictionary",
+        "sort-word-list": "sort .spelling | uniq > /tmp/.spelling && mv /tmp/.spelling .spelling",
+        "?stats:cloc": "Count lines of code",
+        "stats:cloc": "cloc --vcs git",
+        "?system": "Run advanced tests",
+        "system": "run-s system:*",
+        "?system:audit": "Audit NPM packages",
         "system:audit": "npm audit",
+        "?system:doctor": "Identify problems with NPM",
         "system:doctor": "npm doctor",
+        "?system:outdated": "List out-dated NPM packages",
         "system:outdated": "npm outdated || exit 0",
-        "system:test": "npm test",
-        "test": "./node_modules/.bin/run-s test:*",
-        "test:docker-compose": "git ls-files | grep -e '^docker-compose' | xargs -i docker-compose -f {} config > /dev/null",
-        "test:markdown": "./node_modules/.bin/remark --ignore-path .gitignore .",
-        "test:shell": "git ls-files | grep -e '\\.sh$' | xargs shellcheck",
-        "test:spelling": "git ls-files | grep -e '\\.md$' | xargs ./node_modules/.bin/mdspell --report --ignore-numbers --ignore-acronyms --en-us",
-        "test:wording": "git ls-files | grep -e '\\.md$' | grep -v 'CODE_OF_CONDUCT.md' | xargs ./node_modules/.bin/alex",
+        "?test": "Run tests locally",
+        "test": "run-s test:*",
+        "?test:markdown": "Lint Markdown files",
+        "test:markdown": "remark --ignore-path .gitignore .",
+        "?test:spelling": "Check spelling",
+        "test:spelling": "git ls-files | grep -e '\\.md$' | xargs mdspell --report --ignore-numbers --ignore-acronyms --en-us",
+        "?test:wording": "Catch insensitive, inconsiderate writing",
+        "test:wording": "git ls-files | grep -e '\\.md$' | grep -v CODE_OF_CONDUCT | xargs alex",
+        "?test:ec": "Verify that files are in harmony with .editorconfig",
+        "test:ec": "ec",
+        "?test:json": "Lint JSON files",
+        "test:json": "git ls-files | grep -e '\\.json$' | xargs -L 1 jsonlint --quiet",
+        "?test:yaml": "Lint YAML files",
         "test:yaml": "git ls-files | grep -E '\\.(yml|yaml|.yml.dist)$' | xargs yamllint",
-        "sort-word-list": "sort .spelling | uniq > /tmp/.spelling && mv /tmp/.spelling .spelling"
+        "?test:cpd": "Run copy/paste detector",
+        "test:cpd": "jscpd --config .jscpd.json",
+        "?test:docker-compose": "Lint docker-compose files",
+        "test:docker-compose": "git ls-files | grep -e 'docker-compose\\.yml$' | xargs -I file docker-compose -f file config > /dev/null",
+        "?test:dockerfile": "Lint Docker files",
+        "test:dockerfile": "git ls-files | grep -e 'Dockerfile$' | xargs hadolint --config .hadolint.yaml",
+        "?test:shell": "Lint Shell scripts",
+        "test:shell": "git ls-files | grep -e '\\.sh$' | xargs shellcheck",
+        "?wtf": "Find open issues",
+        "wtf": "git grep --line-number --column --heading -E '(WORKAROUND|TODO|FIXME) '"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm test",
-            "pre-push": "npm run system"
-        }
-    },
-    "remarkConfig": {
-        "settings": {},
-        "plugins": [
-            "lint",
-            "lint-no-empty-sections",
-            [
-                "remark-frontmatter",
-                {
-                    "type": "yaml",
-                    "marker": "-"
-                }
-            ],
-            "remark-lint-match-punctuation",
-            [
-                "remark-lint-no-dead-urls",
-                {
-                    "skipLocalhost": true
-                }
-            ],
-            [
-                "remark-lint-no-long-code",
-                {
-                    "length": 100
-                }
-            ],
-            "remark-lint-no-repeat-punctuation",
-            "remark-lint-no-trailing-spaces",
-            [
-                "remark-lint-write-good",
-                [
-                    "warn",
-                    {
-                        "passive": false
-                    }
-                ]
-            ],
-            "remark-preset-lint-consistent",
-            "remark-preset-lint-recommended"
-        ]
+    "os": [
+        "darwin",
+        "linux"
+    ],
+    "engines": {
+        "node": ">=14.16.0",
+        "npm": ">=6.7.0"
     }
 }
