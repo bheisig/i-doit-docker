@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Add i-doit open, versions `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
 -   Add i-doit pro, versions `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
 
+### Changed
+
+-   Bump version of MariaDB; recommended version is `v10.5.x`
+
 ### Removed
 
 -   Drop support for i-doit open/pro `1.14` and `1.15` branches
