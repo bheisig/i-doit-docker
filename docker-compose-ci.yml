@@ -1,0 +1,20 @@
+---
+version: '3.8'
+
+services:
+
+  docker:
+    build:
+      context: .
+      dockerfile: Dockerfile-ci
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
+    volumes:
+      - "${PWD}:/docker/"
+      - home:/home/docker
+    cap_drop:
+      - ALL
+
+volumes:
+  home:

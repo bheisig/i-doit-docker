@@ -1,0 +1,49 @@
+---
+name: Main workflow
+
+on:
+  - push
+  - pull_request
+
+jobs:
+
+  main:
+    name: main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Re-use NPM cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Pull container base image
+        run: |
+          docker-compose \
+            -f docker-compose-ci.yml \
+            pull
+      - name: Re-use container image layers
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+      - name: Build container image
+        run: |
+          docker-compose \
+            -f docker-compose-ci.yml \
+            build \
+            --build-arg USER_ID="$(id -u)" \
+            --build-arg GROUP_ID="$(id -g)"
+      - name: Install toolchain
+        run: |
+          docker-compose \
+            -f docker-compose-ci.yml \
+            run docker \
+            npm install
+      - name: Test
+        run: |
+          docker-compose \
+            -f docker-compose-ci.yml \
+            run docker \
+            npm test

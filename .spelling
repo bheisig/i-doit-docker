@@ -4,6 +4,7 @@ AGPLv3+
 backend
 Changelog
 Dockerized
+e.g.
 GmbH
 Heisig
 i-doit
@@ -12,6 +13,7 @@ Memcached
 MySQL
 Nextcloud
 Nginx
+OpenPGP
 PHP-FPM
 sexualized
 synetics
