@@ -9,10 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Add i-doit open, version `1.16`
--   Add i-doit pro, version `1.16`
--   Add i-doit open, version `1.15.2`
--   Add i-doit pro, version `1.15.2`
+-   Add i-doit open, versions `1.15.2`, `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
+-   Add i-doit pro, versions `1.15.2`, `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
 
 ### Removed
 
