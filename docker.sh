@@ -184,7 +184,7 @@ function scanImage {
     local tag="${DOCKER_IMAGE}:${version}-${edition}-${php}-${service}"
 
     log "Scan image $tag"
-    docker run --rm -v /tmp/trivy:/root/.cache/ aquasec/trivy "$tag"
+    trivy --quiet image --severity HIGH,CRITICAL "$tag"
 }
 
 function fix {

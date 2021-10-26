@@ -94,6 +94,22 @@ RUN curl -OfsSL \
         ec-linux-amd64.tar.gz \
         bin/
 
+# Trivy:
+RUN curl -fsSL \
+        https://aquasecurity.github.io/trivy-repo/deb/public.key | \
+        gpg --dearmor > /usr/share/keyrings/trivy.gpg; \
+    echo \
+        "deb \
+        [signed-by=/usr/share/keyrings/trivy.gpg] \
+        https://aquasecurity.github.io/trivy-repo/deb bionic main" \
+        > /etc/apt/sources.list.d/trivy.list; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        trivy \
+    ;\
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/*
+
 # Upgrade pip:
 RUN pip3 install --upgrade --no-cache-dir \
         pip \
