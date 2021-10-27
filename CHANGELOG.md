@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
+_tbd_
+
+## [0.4.0][] – 2021-10-27
+
 ### Added
 
 -   Add i-doit open, versions `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
@@ -69,6 +73,7 @@ Initial release
 -   Add services Apache Web server and PHP-FPM
 -   Add examples for docker-compose incl. environment variables, MariaDB and Memcached
 
-[Unreleased]: https://github.com/bheisig/i-doit-docker/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/bheisig/i-doit-docker/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/bheisig/i-doit-docker/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/bheisig/i-doit-docker/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/bheisig/i-doit-docker/compare/v0.1.0...v0.2.0
