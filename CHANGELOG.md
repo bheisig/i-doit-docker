@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _tbd_
 
+### Added
+
+-   Add i-doit open/pro, version `1.17.2`
+
 ## [0.4.0][] – 2021-10-27
 
 ### Added
