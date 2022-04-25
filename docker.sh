@@ -252,6 +252,18 @@ function pushImages {
 
     pushImage 1.17.2 open php7.4 apache
     pushImage 1.17.2 open php7.4 fpm
+
+    pushImage 1.18 pro php7.4 apache
+    pushImage 1.18 pro php7.4 fpm
+
+    pushImage 1.18 open php7.4 apache
+    pushImage 1.18 open php7.4 fpm
+
+    pushImage 1.18.1 pro php7.4 apache
+    pushImage 1.18.1 pro php7.4 fpm
+
+    pushImage 1.18.1 open php7.4 apache
+    pushImage 1.18.1 open php7.4 fpm
 }
 
 function pushImage {

@@ -11,7 +11,7 @@ _tbd_
 
 ### Added
 
--   Add i-doit open/pro, version `1.17.2`
+-   Add i-doit open/pro, versions `1.17.2`, `1.18` and `1.18.1`
 
 ## [0.4.0][] – 2021-10-27
 
