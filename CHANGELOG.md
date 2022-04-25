@@ -9,13 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _tbd_
 
+## [0.5.0][] – 2022-04-25
+
 ### Added
 
 -   Add i-doit open/pro, versions `1.17.2`, `1.18` and `1.18.1`
 
 ### Removed
 
--   Drop support for i-doit open/pro `1.16` branch
+-   Drop support of i-doit open/pro `1.16` branch
 
 ## [0.4.0][] – 2021-10-27
 
@@ -31,8 +33,8 @@ _tbd_
 
 ### Removed
 
--   Drop support for i-doit open/pro `1.14` and `1.15` branches
--   Drop support for PHP `7.1`, `7.2`, and `7.3` (end of life)
+-   Drop support of i-doit open/pro `1.14` and `1.15` branches
+-   Drop support of PHP `7.1`, `7.2`, and `7.3` (end of life)
 -   Remove command `./docker.sh test` in favor of `npm test`
 
 ## [0.3.0][] – 2020-10-23
@@ -51,7 +53,7 @@ _tbd_
 
 ### Removed
 
--   Do not build images for `1.13.x` branch anymore
+-   Do not build images of `1.13.x` branch anymore
 
 ## [0.2.0][] – 2020-06-02
 
@@ -67,7 +69,7 @@ _tbd_
 
 ### Removed
 
--   Do not build images for `1.12.x` branch anymore
+-   Do not build images of `1.12.x` branch anymore
 
 ## 0.1.0 – 2019-07-24
 
@@ -81,7 +83,8 @@ Initial release
 -   Add services Apache Web server and PHP-FPM
 -   Add examples for docker-compose incl. environment variables, MariaDB and Memcached
 
-[Unreleased]: https://github.com/bheisig/i-doit-docker/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/bheisig/i-doit-docker/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/bheisig/i-doit-docker/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/bheisig/i-doit-docker/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/bheisig/i-doit-docker/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/bheisig/i-doit-docker/compare/v0.1.0...v0.2.0
