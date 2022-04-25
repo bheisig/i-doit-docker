@@ -163,6 +163,6 @@ We _strongly_ recommend to access i-doit in a productive environment via TLS/HTT
 
 ## Copyright & license
 
-Copyright (C) 2019-2021 [synetics GmbH](https://i-doit.com/)
+Copyright (C) 2019-2022 [synetics GmbH](https://i-doit.com/)
 
 Licensed under the [GNU Affero GPL version 3 or later (`AGPLv3+`)](https://gnu.org/licenses/agpl.html)
