@@ -13,6 +13,10 @@ _tbd_
 
 -   Add i-doit open/pro, versions `1.17.2`, `1.18` and `1.18.1`
 
+### Removed
+
+-   Drop support for i-doit open/pro `1.16` branch
+
 ## [0.4.0][] – 2021-10-27
 
 ### Added
