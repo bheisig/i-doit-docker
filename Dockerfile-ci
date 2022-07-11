@@ -49,7 +49,7 @@ RUN curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n \
     npm install -g npm@latest
 
 # shellcheck:
-ARG SHELLCHECK_VERSION=0.7.2
+ARG SHELLCHECK_VERSION=0.8.0
 RUN curl -OfsSL \
     "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"; \
 tar -xf "shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"; \
@@ -59,7 +59,7 @@ rm -r \
     "shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
 
 # hadolint:
-ARG HADOLINT_VERSION=2.7.0
+ARG HADOLINT_VERSION=2.10.0
 RUN curl -fsSL \
         "https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64" \
         -o /usr/local/bin/hadolint; \
@@ -85,7 +85,7 @@ RUN curl -fsSL \
     rm -rf /var/lib/apt/lists/*
 
 # editorconfig-checker (ec):
-ENV EC_VERSION 2.3.5
+ENV EC_VERSION 2.5.0
 RUN curl -OfsSL \
         "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/${EC_VERSION}/ec-linux-amd64.tar.gz"; \
     tar -xzf ec-linux-amd64.tar.gz; \
