@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
-_tbd_
+### Added
+
+-   Add support of i-doit open/pro, version `1.18.2`
 
 ## [0.5.0][] – 2022-04-25
 
 ### Added
 
--   Add i-doit open/pro, versions `1.17.2`, `1.18` and `1.18.1`
+-   Add support of i-doit open/pro, versions `1.17.2`, `1.18` and `1.18.1`
 
 ### Removed
 
@@ -23,8 +25,8 @@ _tbd_
 
 ### Added
 
--   Add i-doit open, versions `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
--   Add i-doit pro, versions `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
+-   Add support of i-doit open, versions `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
+-   Add support of i-doit pro, versions `1.16`, `1.16.1`, `1.16.2`, `1.16.3`, `1.17`, `1.17.1`
 
 ### Changed
 
