@@ -102,6 +102,12 @@ function buildImages {
 
     buildImage 1.18.2 open php7.4 apache
     buildImage 1.18.2 open php7.4 fpm
+
+    buildImage 1.19 pro php7.4 apache
+    buildImage 1.19 pro php7.4 fpm
+
+    buildImage 1.19 open php7.4 apache
+    buildImage 1.19 open php7.4 fpm
 }
 
 function pullImages {
@@ -174,6 +180,12 @@ function scanImages {
 
     scanImage 1.18.2 open php7.4 apache
     scanImage 1.18.2 open php7.4 fpm
+
+    scanImage 1.19 pro php7.4 apache
+    scanImage 1.19 pro php7.4 fpm
+
+    scanImage 1.19 open php7.4 apache
+    scanImage 1.19 open php7.4 fpm
 }
 
 function scanImage {
@@ -234,6 +246,12 @@ function pushImages {
 
     pushImage 1.18.2 open php7.4 apache
     pushImage 1.18.2 open php7.4 fpm
+
+    pushImage 1.19 pro php7.4 apache
+    pushImage 1.19 pro php7.4 fpm
+
+    pushImage 1.19 open php7.4 apache
+    pushImage 1.19 open php7.4 fpm
 }
 
 function pushImage {
@@ -250,6 +268,12 @@ function pushImage {
 }
 
 function printReadme {
+    printSupportedTags 1.19 open php7.4 fpm
+    printSupportedTags 1.19 open php7.4 apache
+
+    printSupportedTags 1.19 pro php7.4 fpm
+    printSupportedTags 1.19 pro php7.4 apache
+
     printSupportedTags 1.18.2 open php7.4 fpm
     printSupportedTags 1.18.2 open php7.4 apache
 
