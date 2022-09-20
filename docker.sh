@@ -67,24 +67,6 @@ function logoutFromDockerHub {
 function buildImages {
     log "Build Docker images…"
 
-    buildImage 1.17 pro php7.4 apache
-    buildImage 1.17 pro php7.4 fpm
-
-    buildImage 1.17 open php7.4 apache
-    buildImage 1.17 open php7.4 fpm
-
-    buildImage 1.17.1 pro php7.4 apache
-    buildImage 1.17.1 pro php7.4 fpm
-
-    buildImage 1.17.1 open php7.4 apache
-    buildImage 1.17.1 open php7.4 fpm
-
-    buildImage 1.17.2 pro php7.4 apache
-    buildImage 1.17.2 pro php7.4 fpm
-
-    buildImage 1.17.2 open php7.4 apache
-    buildImage 1.17.2 open php7.4 fpm
-
     buildImage 1.18 pro php7.4 apache
     buildImage 1.18 pro php7.4 fpm
 
@@ -145,24 +127,6 @@ function buildImage {
 function scanImages {
     log "Scan Docker images for vulnerabilities…"
 
-    scanImage 1.17 pro php7.4 apache
-    scanImage 1.17 pro php7.4 fpm
-
-    scanImage 1.17 open php7.4 apache
-    scanImage 1.17 open php7.4 fpm
-
-    scanImage 1.17.1 pro php7.4 apache
-    scanImage 1.17.1 pro php7.4 fpm
-
-    scanImage 1.17.1 open php7.4 apache
-    scanImage 1.17.1 open php7.4 fpm
-
-    scanImage 1.17.2 pro php7.4 apache
-    scanImage 1.17.2 pro php7.4 fpm
-
-    scanImage 1.17.2 open php7.4 apache
-    scanImage 1.17.2 open php7.4 fpm
-
     scanImage 1.18 pro php7.4 apache
     scanImage 1.18 pro php7.4 fpm
 
@@ -210,24 +174,6 @@ function fixFilePermissions {
 
 function pushImages {
     log "Push Docker images to registry…"
-
-    pushImage 1.17 pro php7.4 apache
-    pushImage 1.17 pro php7.4 fpm
-
-    pushImage 1.17 open php7.4 apache
-    pushImage 1.17 open php7.4 fpm
-
-    pushImage 1.17.1 pro php7.4 apache
-    pushImage 1.17.1 pro php7.4 fpm
-
-    pushImage 1.17.1 open php7.4 apache
-    pushImage 1.17.1 open php7.4 fpm
-
-    pushImage 1.17.2 pro php7.4 apache
-    pushImage 1.17.2 pro php7.4 fpm
-
-    pushImage 1.17.2 open php7.4 apache
-    pushImage 1.17.2 open php7.4 fpm
 
     pushImage 1.18 pro php7.4 apache
     pushImage 1.18 pro php7.4 fpm
@@ -291,24 +237,6 @@ function printReadme {
 
     printSupportedTags 1.18 pro php7.4 fpm
     printSupportedTags 1.18 pro php7.4 apache
-
-    printSupportedTags 1.17.2 open php7.4 fpm
-    printSupportedTags 1.17.2 open php7.4 apache
-
-    printSupportedTags 1.17.2 pro php7.4 fpm
-    printSupportedTags 1.17.2 pro php7.4 apache
-
-    printSupportedTags 1.17.1 open php7.4 fpm
-    printSupportedTags 1.17.1 open php7.4 apache
-
-    printSupportedTags 1.17.1 pro php7.4 fpm
-    printSupportedTags 1.17.1 pro php7.4 apache
-
-    printSupportedTags 1.17 open php7.4 fpm
-    printSupportedTags 1.17 open php7.4 apache
-
-    printSupportedTags 1.17 pro php7.4 fpm
-    printSupportedTags 1.17 pro php7.4 apache
 }
 
 function printSupportedTags {

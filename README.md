@@ -31,18 +31,6 @@ At the moment, we use these images for quality tests of i-doit and its add-ons. 
 -   `1.18-open-php7.4-apache` ([`Dockerfile`](1.18/open/php7.4/apache))
 -   `1.18-pro-php7.4-fpm` ([`Dockerfile`](1.18/pro/php7.4/fpm))
 -   `1.18-pro-php7.4-apache` ([`Dockerfile`](1.18/pro/php7.4/apache))
--   `1.17.2-open-php7.4-fpm` ([`Dockerfile`](1.17.2/open/php7.4/fpm))
--   `1.17.2-open-php7.4-apache` ([`Dockerfile`](1.17.2/open/php7.4/apache))
--   `1.17.2-pro-php7.4-fpm` ([`Dockerfile`](1.17.2/pro/php7.4/fpm))
--   `1.17.2-pro-php7.4-apache` ([`Dockerfile`](1.17.2/pro/php7.4/apache))
--   `1.17.1-open-php7.4-fpm` ([`Dockerfile`](1.17.1/open/php7.4/fpm))
--   `1.17.1-open-php7.4-apache` ([`Dockerfile`](1.17.1/open/php7.4/apache))
--   `1.17.1-pro-php7.4-fpm` ([`Dockerfile`](1.17.1/pro/php7.4/fpm))
--   `1.17.1-pro-php7.4-apache` ([`Dockerfile`](1.17.1/pro/php7.4/apache))
--   `1.17-open-php7.4-fpm` ([`Dockerfile`](1.17/open/php7.4/fpm))
--   `1.17-open-php7.4-apache` ([`Dockerfile`](1.17/open/php7.4/apache))
--   `1.17-pro-php7.4-fpm` ([`Dockerfile`](1.17/pro/php7.4/fpm))
--   `1.17-pro-php7.4-apache` ([`Dockerfile`](1.17/pro/php7.4/apache))
 
 **Note:** Older branches are not supported anymore but can still be found in the repository.
 
