@@ -3,7 +3,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-: "${INSTALL_DIR:="/var/www/html"}"
 : "${MYSQL_HOSTNAME:="localhost"}"
 : "${MYSQL_ROOT_USER:="root"}"
 : "${MYSQL_ROOT_PASSWORD:="idoit"}"
@@ -23,27 +22,12 @@ IFS=$'\n\t'
 : "${APACHE_HTACCESS_SUBSTITUTION:="## Insert content from .htaccess file here"}"
 
 function report {
-    log "Installation directory: $INSTALL_DIR"
     log "Default tenant: $IDOIT_DEFAULT_TENANT"
     log "MariaDB hostname: $MYSQL_HOSTNAME"
     log "i-doit system database: $IDOIT_SYSTEM_DATABASE"
     log "i-doit tenant database: $IDOIT_TENANT_DATABASE"
     log "MariaDB super-user: $MYSQL_ROOT_USER"
     log "MariaDB i-doit user: $MYSQL_USER"
-}
-
-function runChecks {
-    test -d "$INSTALL_DIR" || \
-        abort "Installation directory '${INSTALL_DIR}' not found"
-
-    test -d "${INSTALL_DIR}/setup" || \
-        abort "Directory '${INSTALL_DIR}/setup' not accessible"
-
-    test -x "${INSTALL_DIR}/setup/install.sh" || \
-        abort "Install script '${INSTALL_DIR}/setup/install.sh' not found/executable"
-
-    test -x "$MARIADB_BIN" || \
-        abort "MariaDB client '${MARIADB_BIN}' not found"
 }
 
 function waitForDBMS {
@@ -56,73 +40,29 @@ function waitForDBMS {
     done
 }
 
-function execute {
-    log "Install i-doit"
-
-    addDB "$IDOIT_SYSTEM_DATABASE"
-    addDB "$IDOIT_TENANT_DATABASE"
-    runIdoitSetup
-    fixTenantTable
-    fixConfigFile
-    enableMemcached
-    updateApacheConfig
-}
-
-function addDB {
-    local dbName="$1"
-
-    log "Create database '${dbName}'"
-    "$MARIADB_BIN" \
-        -h"$MYSQL_HOSTNAME" \
-        -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" \
-        -e"CREATE DATABASE IF NOT EXISTS $dbName;" || \
-        abort "SQL statement failed"
-
-    log "Grant MariaDB user '${MYSQL_USER}' access to database '${dbName}'"
-    "$MARIADB_BIN" \
-        -h"$MYSQL_HOSTNAME" \
-        -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" \
-        -e"GRANT ALL PRIVILEGES ON ${dbName}.* TO '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';" || \
-        abort "SQL statement failed"
-}
-
 function runIdoitSetup {
-    cd "${INSTALL_DIR}/setup" || abort "Change directory to '${INSTALL_DIR}/setup' failed"
+    log "Install i-doit"
+    php console.php install \
+        -u "$MYSQL_ROOT_USER" \
+        -p "$MYSQL_ROOT_PASSWORD" \
+        --host="$MYSQL_HOSTNAME" \
+        -d "$IDOIT_SYSTEM_DATABASE" \
+        -U "$MYSQL_USER" \
+        -P "$MYSQL_PASSWORD" \
+        --admin-password "$IDOIT_ADMIN_CENTER_PASSWORD" \
+        -n  || \
+            abort "Installation of i-doit failed"
 
-    log "Run i-doit's setup script"
-    ./install.sh -n "$IDOIT_DEFAULT_TENANT" \
-        -s "$IDOIT_SYSTEM_DATABASE" -m "$IDOIT_TENANT_DATABASE" -h "$MYSQL_HOSTNAME" \
-        -u "$MYSQL_USER" \
-        -p "$MYSQL_PASSWORD" \
-        -a "$IDOIT_ADMIN_CENTER_PASSWORD" -q || \
-            abort "i-doit setup script returned an error"
-}
-
-function fixTenantTable {
-    log "Fix tenant table"
-    "$MARIADB_BIN" \
-        -h"$MYSQL_HOSTNAME" \
-        -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" \
-        -e"UPDATE ${IDOIT_SYSTEM_DATABASE}.isys_mandator SET isys_mandator__db_user = '${MYSQL_USER}', isys_mandator__db_pass = '${MYSQL_PASSWORD}';" || \
-        abort "SQL statement failed"
-}
-
-function fixConfigFile {
-    local configFile="${INSTALL_DIR}/src/config.inc.php"
-
-    log "Fix configuration file '${configFile}'"
-
-    sed -i -- \
-        "s/'user' => '${MYSQL_ROOT_USER}'/'user' => '${MYSQL_USER}'/g" \
-        "$configFile" || \
-        abort "Unable to replace MariaDB username"
-
-    sed -i -- \
-        "s/'pass' => '${MYSQL_ROOT_PASSWORD}'/'pass' => '${MYSQL_PASSWORD}'/g" \
-        "$configFile" || \
-        abort "Unable to replace MariaDB password"
-
-    chown "$APACHE_USER":"$APACHE_GROUP" "$configFile" || abort "Unable to change ownership"
+    log "Create tenant"
+    php console.php tenant-create \
+        -u "$MYSQL_ROOT_USER" \
+        -p "$MYSQL_ROOT_PASSWORD" \
+        -U "$MYSQL_USER" \
+        -P "$MYSQL_PASSWORD" \
+        -d "$MYSQL_PASSWORD" \
+        -t "$IDOIT_DEFAULT_TENANT" \
+        -n  || \
+            abort "Tenant can't be created"
 }
 
 function enableMemcached {
@@ -176,8 +116,9 @@ function abort {
 
 if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
     report
-    runChecks
     waitForDBMS
-    execute
+    runIdoitSetup
+    enableMemcached
+    updateApacheConfig
     finish
 fi

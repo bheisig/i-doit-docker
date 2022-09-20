@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   Add support of i-doit open/pro, versions `1.18.2` and `1.19`
+-   Add support of PHP version branch `8.0`
+
+### Changed
+
+-   Re-factor setup routine
 
 ### Removed
 

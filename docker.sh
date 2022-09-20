@@ -90,11 +90,19 @@ function buildImages {
 
     buildImage 1.19 open php7.4 apache
     buildImage 1.19 open php7.4 fpm
+
+    buildImage 1.19 pro php8.0 apache
+    buildImage 1.19 pro php8.0 fpm
+
+    buildImage 1.19 open php8.0 apache
+    buildImage 1.19 open php8.0 fpm
 }
 
 function pullImages {
     log "Pull Docker images from registry…"
 
+    pullImage php:8.0-fpm-bullseye
+    pullImage php:8.0-apache-bullseye
     pullImage php:7.4-fpm-bullseye
     pullImage php:7.4-apache-bullseye
 }
@@ -150,6 +158,12 @@ function scanImages {
 
     scanImage 1.19 open php7.4 apache
     scanImage 1.19 open php7.4 fpm
+
+    scanImage 1.19 pro php8.0 apache
+    scanImage 1.19 pro php8.0 fpm
+
+    scanImage 1.19 open php8.0 apache
+    scanImage 1.19 open php8.0 fpm
 }
 
 function scanImage {
@@ -198,6 +212,12 @@ function pushImages {
 
     pushImage 1.19 open php7.4 apache
     pushImage 1.19 open php7.4 fpm
+
+    pushImage 1.19 pro php8.0 apache
+    pushImage 1.19 pro php8.0 fpm
+
+    pushImage 1.19 open php8.0 apache
+    pushImage 1.19 open php8.0 fpm
 }
 
 function pushImage {
@@ -214,6 +234,12 @@ function pushImage {
 }
 
 function printReadme {
+    printSupportedTags 1.19 open php8.0 fpm
+    printSupportedTags 1.19 open php8.0 apache
+
+    printSupportedTags 1.19 pro php8.0 fpm
+    printSupportedTags 1.19 pro php8.0 apache
+
     printSupportedTags 1.19 open php7.4 fpm
     printSupportedTags 1.19 open php7.4 apache
 
